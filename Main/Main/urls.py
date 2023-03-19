@@ -22,6 +22,7 @@ from _NewsSite import views
 urlpatterns = [
     path('admin/', admin.site.index),
     path('', views.index),
-    path('reg/', views.registration_page)
+    path('reg/', views.registration_page),
+    path('log/', views.login_page)
 ]
 

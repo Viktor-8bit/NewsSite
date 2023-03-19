@@ -14,16 +14,16 @@
     <body>
         <h1>
 
-            Зарегистрировать аккаунт
+            Войти в аккаунт
 
         </h1>
           
-            <form id="send_data" action="/reg/" method="post">
+            <form id="send_data" action="/log/" method="post">
                 {% csrf_token %}
 
-                <div class = 'reg'>
-                    <legend>Форма регистрации</legend>
-                    {{ reg.as_p }}
+                <div class = 'log'>
+                    <legend>Форма входа в аккаунт</legend>
+                    {{ login.as_p }}
                     <button type="submit">Отправить</button>
                 </div>
             </form>

@@ -4,6 +4,22 @@ from django.core.exceptions import ValidationError
 
 
 
+class LoginFrom(forms.ModelForm):
+    class Meta:
+        model = Users
+        fields = [ 'Login', 'password' ]
+
+    password = forms.CharField(
+        max_length=255,
+        label='Введите пароль',
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': 'введите пароль',
+                'class': 'form-conrol'
+            }
+        )
+    )
+
 class RegForm(forms.ModelForm):
 
     # def clean(self):
