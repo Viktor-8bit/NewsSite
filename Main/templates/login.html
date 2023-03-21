@@ -12,7 +12,8 @@
     </head>
 
     <body>
-        <h1>
+
+        <h1 class="theader">
 
             Войти в аккаунт
 
@@ -24,9 +25,11 @@
                 <div class = 'log'>
                     <legend>Форма входа в аккаунт</legend>
                     {{ login.as_p }}
+                    <p class="error">{{ error }}</p>
                     <button type="submit">Отправить</button>
                 </div>
             </form>
+
     </body>
 
 </html>
