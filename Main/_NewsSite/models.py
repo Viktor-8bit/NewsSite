@@ -29,7 +29,7 @@ class Posts(models.Model):
 
     Title = models.CharField(max_length=255)
     Text = models.CharField(max_length=255)
-    Datee = models.DateTimeField(auto_now_add=True)
+    Datee = models.DateTimeField(auto_now_add=True, null=True)
 
 
 
@@ -40,5 +40,5 @@ class Comments(models.Model):
     UserID = models.ForeignKey(Users, on_delete=models.CASCADE)
 
     CommentText = models.CharField(max_length=255)
-    Datee = models.DateTimeField(auto_now_add=True)
+    Datee = models.DateTimeField(auto_now_add=True, null=True)
 

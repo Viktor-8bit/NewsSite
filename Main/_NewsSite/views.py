@@ -4,7 +4,7 @@ from .forms import *
 import hashlib
 
 #страницы храняться по адресу NewsSite\Main\site_pages
-# тестовый аккаунт - login: AMOGUS pass:  9E6-rH9-Ad9-FE6
+    # тестовый аккаунт - login: AMOGUS pass:  9E6-rH9-Ad9-FE6
 
 def registration_page(request):
     if request.method == 'GET':
@@ -62,12 +62,9 @@ def Post(request):
     return HttpResponse('hello page')
 
 def index(request):
-<<<<<<< Updated upstream
     # return HttpResponse('hello page')
     return render(request, 'main_page.html')
     # return render(request, 'test.html')
-=======
-    pass
 
 def post_create_page(request):
     if request.method == 'POST':
@@ -79,17 +76,13 @@ def post_create_page(request):
                 user = shadowlogin.check_access()
                 if createpostfrom.is_valid():
 
-                    _title = createpostfrom.cleaned_data['Title']
-                    _text = createpostfrom.cleaned_data['Text']
-                    _categoryId = createpostfrom.cleaned_data['CategoryID']
-
                     post = Posts()
 
                     post.UserID = user
-                    post.Text = _text
-                    post.Title = _title
-                    post.CategoryID = _categoryId
-                    #post.save()
+                    post.Text = createpostfrom.cleaned_data['Text']
+                    post.Title = createpostfrom.cleaned_data['Title']
+                    post.CategoryID = createpostfrom.cleaned_data['CategoryID']
+                    post.save()
                     return  HttpResponse('всё прошло гладко ✔')
                 else:
                     return HttpResponse('не очень окей ❌')
@@ -100,14 +93,6 @@ def post_create_page(request):
         else:
             return HttpResponse('нет прав доступа')
 
-
-        #print(createpostfrom.cleaned_data['Title'])
-        #print(createpostfrom.cleaned_data['Text'])
-        #print(createpostfrom.cleaned_data['CategoryID'])
-
-
-            #createpostfrom.save()
-            #return HttpResponse('всё окей ✔')
     if request.method == 'GET':
         return render(request, 'create_post.html', { 'create_post' : PostForm(), 'shadow_login' : ShadowLoginForm() })
->>>>>>> Stashed changes
+
