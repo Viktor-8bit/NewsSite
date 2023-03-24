@@ -1,6 +1,7 @@
 from django import forms
 from .models import *
 from django.core.exceptions import ValidationError
+import hashlib
 
 
 
@@ -21,12 +22,11 @@ class LoginFrom(forms.ModelForm):
     )
 
 class RegForm(forms.ModelForm):
-
-    # def clean(self):
-    #    pass2 = self.cleaned_data['password1']
-    #    pass1 = self.cleaned_data['password']
-    #    if pass2 != pass1:
-    #        raise ValidationError( {'password': "Пароли не совпадают!"})
+    def clean(self):
+        pass2 = self.cleaned_data['password1']
+        pass1 = self.cleaned_data['password']
+        if pass2 != pass1:
+            raise ValidationError("пароли не совпадают 💢")
 
     class Meta:
         model = Users
@@ -53,3 +53,55 @@ class RegForm(forms.ModelForm):
             }
         )
     )
+
+class ShadowLoginForm(forms.Form):
+
+    def check_access(self):
+        login = self.cleaned_data['Login']
+        passwd = hashlib.sha256(bytes(self.cleaned_data['password'], 'utf-8')).hexdigest()
+        User_count = Users.objects.filter(Login=login, password=passwd)
+        if len(User_count) > 0:
+            return User_count[0]
+
+        else:
+            raise ValidationError("вы не вошли в аккаунт 💢")
+
+    password = forms.CharField(
+        max_length=255,
+        label='',
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form',
+                'hidden' : 'True'
+            }
+        )
+    )
+
+    Login = forms.CharField(
+        max_length=255,
+        label='',
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form',
+                'hidden' : 'True'
+            }
+        )
+    )
+
+class PostForm(forms.ModelForm):
+
+    class Meta:
+        model = Posts
+        fields = ['Title', 'Text', 'CategoryID']
+
+    Text = forms.CharField(
+        widget=forms.Textarea,
+        max_length=255,
+        label=''
+    )
+
+    #CategoryID = forms.ModelChoiceField(
+    #    queryset = PostCategory.objects.all(),
+    #    empty_label=None,
+    #    label='категория'
+    #)

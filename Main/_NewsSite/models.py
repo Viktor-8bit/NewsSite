@@ -13,18 +13,24 @@ class Users(models.Model):
 
 class UserPhoto(models.Model):
 
-    UserId = models.ForeignKey(Users, blank=False, null=False, on_delete=models.CASCADE)
+    UserId = models.ForeignKey(Users, on_delete=models.DO_NOTHING, blank=False, null=False)
 
     exist = models.BooleanField(default=False)
     photo = models.ImageField(upload_to='users_photos/')
 
 
+class PostCategory(models.Model):
+    category = models.CharField(max_length=255)
+
 class Posts(models.Model):
 
-    UserID = models.ForeignKey(Users, on_delete=models.DO_NOTHING, null=False, blank=False)
+    UserID = models.ForeignKey(Users, on_delete=models.DO_NOTHING, null=False, default=0)
+    CategoryID = models.ForeignKey(PostCategory, on_delete=models.DO_NOTHING, null=False, default=0)
 
     Title = models.CharField(max_length=255)
     Text = models.CharField(max_length=255)
+    Datee = models.DateTimeField(auto_now_add=True)
+
 
 
 class Comments(models.Model):
@@ -35,3 +41,4 @@ class Comments(models.Model):
 
     CommentText = models.CharField(max_length=255)
     Datee = models.DateTimeField(auto_now_add=True)
+

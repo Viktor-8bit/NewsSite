@@ -22,11 +22,11 @@
             <form id="send_data" action="/log/" method="post">
                 {% csrf_token %}
 
-                <div class = 'log'>
+                <div class = 'form-group'>
                     <legend>Форма входа в аккаунт</legend>
                     {{ login.as_p }}
                     <p class="error">{{ error }}</p>
-                    <button type="submit">Отправить</button>
+                    <button class = 'btn btn-outline-primary' type="submit">Отправить</button>
                 </div>
             </form>
 

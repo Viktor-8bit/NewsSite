@@ -15,7 +15,7 @@ def registration_page(request):
             try:
                 User_count = Users.objects.filter(Login =regform.cleaned_data['Login']).count()
                 if User_count > 0:
-                    return render(request, 'reg.html', {'reg': RegForm(), 'error': 'пользователь с таким Login существует в базе, не взламывайте его перебором паролей пожалуйста 😏!!!'})
+                    return render(request, 'reg.html', {'reg': RegForm(), 'error': 'пользователь с таким Login существует в базе !'})
                 else:
                     user = Users()
                     user.email = regform.cleaned_data['email']
@@ -24,6 +24,12 @@ def registration_page(request):
                     user.save()
             except:
                 return render(request, 'reg.html', { 'reg': RegForm(), 'error': 'упс, где-то произошла ошибочка 😨'} )
+        else:
+            try:
+                regform.clean()
+            except Exception as ex:
+                return render(request, 'reg.html', {'reg': RegForm(), 'error': ex.args[0]})
+
         return HttpResponse('Вы скорее всего успешно зарегистрированы 😎')
 
 def login_page(request):
@@ -39,8 +45,7 @@ def login_page(request):
                 User_count = Users.objects.filter(Login=login, password=password)
 
                 if len(User_count) > 0:
-                    print(User_count[0])
-                    return HttpResponse(f'аккаунт существует 🍵 с логином {login} и паролем {password} 🍵')
+                    return HttpResponse(f'вы вошли')
                 else:
                     return render(request, 'login.html', {'login': LoginFrom(), 'error': 'такого пользователя нет ️🐒️ или пароль неправильный 🐒️'})
             except Exception as ex:
@@ -51,7 +56,58 @@ def login_page(request):
                 return render(request, 'login.html', {'login': LoginFrom(), 'error': 'упс, где-то произошла ошибочка ☕'})
     return HttpResponse('неизвестная ошибка 🕷🕸')
 
+def Post(request):
+    posts = Posts.objects.order_by('-id')[:10]
+    print(posts)
+    return HttpResponse('hello page')
+
 def index(request):
+<<<<<<< Updated upstream
     # return HttpResponse('hello page')
     return render(request, 'main_page.html')
     # return render(request, 'test.html')
+=======
+    pass
+
+def post_create_page(request):
+    if request.method == 'POST':
+        shadowlogin = ShadowLoginForm(request.POST)
+        createpostfrom = PostForm(request.POST)
+
+        if shadowlogin.is_valid():
+            try:
+                user = shadowlogin.check_access()
+                if createpostfrom.is_valid():
+
+                    _title = createpostfrom.cleaned_data['Title']
+                    _text = createpostfrom.cleaned_data['Text']
+                    _categoryId = createpostfrom.cleaned_data['CategoryID']
+
+                    post = Posts()
+
+                    post.UserID = user
+                    post.Text = _text
+                    post.Title = _title
+                    post.CategoryID = _categoryId
+                    #post.save()
+                    return  HttpResponse('всё прошло гладко ✔')
+                else:
+                    return HttpResponse('не очень окей ❌')
+
+            except Exception as ex:
+                return HttpResponse(f'ошибка: не очень окей ❌ {ex.args[0]}')
+
+        else:
+            return HttpResponse('нет прав доступа')
+
+
+        #print(createpostfrom.cleaned_data['Title'])
+        #print(createpostfrom.cleaned_data['Text'])
+        #print(createpostfrom.cleaned_data['CategoryID'])
+
+
+            #createpostfrom.save()
+            #return HttpResponse('всё окей ✔')
+    if request.method == 'GET':
+        return render(request, 'create_post.html', { 'create_post' : PostForm(), 'shadow_login' : ShadowLoginForm() })
+>>>>>>> Stashed changes
