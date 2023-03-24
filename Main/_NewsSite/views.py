@@ -52,4 +52,6 @@ def login_page(request):
     return HttpResponse('неизвестная ошибка 🕷🕸')
 
 def index(request):
-    return HttpResponse('hello page')
+    # return HttpResponse('hello page')
+    return render(request, 'main_page.html')
+    # return render(request, 'test.html')
