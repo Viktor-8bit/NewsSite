@@ -4,7 +4,7 @@ from .forms import *
 import hashlib
 
 #страницы храняться по адресу NewsSite\Main\site_pages
-    # тестовый аккаунт - login: AMOGUS pass:  9E6-rH9-Ad9-FE6
+# тестовый аккаунт - login: AMOGUS pass:  9E6-rH9-Ad9-FE6
 
 def registration_page(request):
     if request.method == 'GET':
@@ -96,3 +96,14 @@ def post_create_page(request):
     if request.method == 'GET':
         return render(request, 'create_post.html', { 'create_post' : PostForm(), 'shadow_login' : ShadowLoginForm() })
 
+
+
+def posts(request):
+    count = len(Posts.objects.all())
+    # берём последние десять постов
+    posts = Posts.objects.filter(id__range =(0, 10))
+
+    return render(request, 'get_post_test.html', { 'posts' : posts } )
+def post(request):
+    if request.method == 'GET':
+        pass

@@ -96,12 +96,13 @@ class PostForm(forms.ModelForm):
 
     Text = forms.CharField(
         widget=forms.Textarea,
-        max_length=255,
+        max_length=10000,
         label=''
     )
 
+
     #CategoryID = forms.ModelChoiceField(
-    #    queryset = PostCategory.objects.all(),
+    #   queryset = PostCategory.objects.all(),
     #    empty_label=None,
     #    label='категория'
     #)

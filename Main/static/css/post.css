@@ -1,0 +1,31 @@
+.post {
+    border: 0.05em solid black;
+    width:  200px;
+    background-color: rgb(210, 255, 196);
+    margin-top: 20PX;
+    margin-left: 15px;
+    margin-right: 15px;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.posts {
+    display: flex;
+    Justify-content: center;
+    /* background-color: aqua; */
+    width: 810px;
+    flex-wrap: wrap;
+
+    margin: auto;
+    left:0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+
+#my_headr {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-size: 64px;
+}

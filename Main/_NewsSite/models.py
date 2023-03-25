@@ -28,7 +28,7 @@ class Posts(models.Model):
     CategoryID = models.ForeignKey(PostCategory, on_delete=models.DO_NOTHING, null=False, default=0)
 
     Title = models.CharField(max_length=255)
-    Text = models.CharField(max_length=255)
+    Text = models.CharField(max_length = 10000 )
     Datee = models.DateTimeField(auto_now_add=True, null=True)
 
 
