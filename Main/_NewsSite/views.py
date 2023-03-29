@@ -62,8 +62,10 @@ def Post(request):
     return HttpResponse('hello page')
 
 def index(request):
+    count = len(Posts.objects.all())
+    posts = Posts.objects.filter(id__range =(0, 10))
     # return HttpResponse('hello page')
-    return render(request, 'main_page.html')
+    return render(request, 'main_page.html', { 'posts' : posts } )
     # return render(request, 'test.html')
 
 def post_create_page(request):
@@ -104,6 +106,12 @@ def posts(request):
     posts = Posts.objects.filter(id__range =(0, 10))
 
     return render(request, 'get_post_test.html', { 'posts' : posts } )
+
 def post(request):
     if request.method == 'GET':
-        pass
+        try:
+            id = int(request.GET['postid'])
+            post = Posts.objects.get(id=id)
+            return render(request, 'post_by_id.html', { 'post' : post })
+        except Exception as ex:
+            return HttpResponse('ошибка доступа 🤷‍♀️🤷‍♂️')

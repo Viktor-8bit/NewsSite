@@ -1,6 +1,4 @@
-h1 {
-  color: purple;
-}
+
 /*------Start------*/
 html{
   scroll-behavior: smooth;
@@ -24,16 +22,17 @@ html{
 
 .logo_wrap{
   height: 70px;
+  padding-left: 250px;
 }
 
 body{
   margin: 0;
-  height: 220vh;
+  /* height: 220vh; */
   overflow-x: hidden;
 }
 
 .header{
-  height: 100vh;
+  height: 80vh;
   width: 100%;
   display: flex;
   background-image: url(../img/bg_test.png);
@@ -81,7 +80,7 @@ p{
 }
 
 .navbar-menu li a{
-  color: #000;
+  color: #ffffff;
   font-size: 20px;
   text-decoration: none;
   opacity: 0.7;
@@ -99,6 +98,7 @@ p{
   margin-bottom: 18px;
   margin-left: 40px;
   margin-right: 15px;
+  padding-right: 250px;
 }
 
 .callback li{

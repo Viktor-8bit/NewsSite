@@ -3,23 +3,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InfoGroup</title>
-    <link rel="shortcut icon" href="static/img/m_logo (1).ico">
-    <link rel="stylesheet" href="static/css/sus.css">
-    <link rel="stylesheet" href="static/css/post.css">
+    <title>News</title>
+    <link rel="shortcut icon" href="{% static '/img/m_logo (1).ico'%}">
+    <link rel="stylesheet" href="{% static '/css/single_post.css' %}">
+    <!-- <link rel="stylesheet" href="{% static '/css/sus.css' %}"> -->
     <style>
         @font-face{
             font-family:'TTNormsProRegular';
-            src: url(static/otf/TTNormsProRegular.otf);
+            src: url("{% static '/otf/TTNormsProRegular.otf'%}");
         }
     </style>
 </head>
 <body style="font-family: 'TTNormsProRegular';">
     <nav class="navbar">
         <div class="container">
-            <img src="static/img/logo_test.png" class="logo_wrap"/>
+            <img src="{% static '/img/logo_test (1).png'%}" class="logo_wrap"/>
             <div class="navbar-wrap">
                 <ul class="navbar-menu">
                     <li><a href="#">О нас</a></li>
@@ -35,26 +33,32 @@
     </nav>
 
     <header class="header">
-        <div class="head_container">
-            <h2 class="header_title">АНАЛИЗИРУЕМ РИСКИ <p>НАХОДИМ ВОЗМОЖНОСТИ</p><p>ПРИНИМАЕМ РЕШЕНИЯ</p></h2>
-        </div>
-        <div class="header_overlay"></div>
+        
     </header>
-    
-    <div >
-        <h2 align="center" style="color: #3c6346; font-size: 40px;">Последние новости</h2>
-        <div align="center" class="grid">
-            {% for p in posts %}
 
-              <div class="grid-item border">
-                <h4><a href="http://127.0.0.1:8000/post/?&postid={{p.id}}" class="href_text">{{p.Title}}</a></h4>
-                <h6 class="grid-h6">{{p.Datee}}</h6>
-              </div>
-
-            {% endfor  %}
-
-      </div>
+    <div class="post">
+        <div class="news-container">
+            <div class="news-tab-items">
+                <div class="block-1">
+                    <H4>{{post.Datee}}</H4>
+                </div>
+                
+                <div class="block-2">
+                    <H3>{{post.Title}}</H3>
+                </div>
+                
+                <div class="block-3">
+                    <p>{{post.Text |safe}}</p>
+                </div>
+                
+                <div class="block-4">
+                    <H4><a class="categ-btn" href="#" style="text-decoration: none;">{{post.CategoryID.category}}</a></H4>
+                    <!-- Автор: {{post.UserID.Login}} -->
+                </div>
+            </div>
+        </div>
     </div>
+
 
     <div id="jump" class="cotacts" style="height: 20vh; background-color: #3b3b3b;" >
         <h2 class="com_bot" align="center" style="color: rgb(78, 136, 92);">Контакты</h2>

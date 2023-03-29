@@ -1,0 +1,237 @@
+.post{
+    margin: 0;
+}
+
+  /*------Start------*/
+  html{
+    scroll-behavior: smooth;
+  }
+  
+  /*------Меняет скролл------*/
+  ::-webkit-scrollbar {
+    width: 10px; /* ширина для вертикального скролла */
+    background-color: #3b3b3b;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #62a071c0;
+    border-radius: 3px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #62a071;
+  }
+  /* -------------------- */
+  
+  .logo_wrap{
+    height: 70px;
+    padding-left: 250px;
+  }
+  
+  body{
+    margin: 0;
+    /* height: 220vh; */
+    overflow-x: hidden;
+  }
+  
+  .header{
+    height: 50vh;
+    width: 100%;
+    display: flex;
+    background-image: url(../img/news.jpg);
+    background-size: cover;
+    align-items: center;
+  }
+  
+  .header_title{
+    font-size: 25px;
+    padding-left: 200px;
+    padding-bottom: 300px;
+    color: #3c6346;
+  }
+  
+  p{
+    margin: 0;
+    padding-top: 10px;
+  }
+  
+  .navbar{
+    width: 100%;
+    height: 70px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.3);
+    /* backdrop-filter: blur(5px); */
+    position: fixed;
+  }
+  
+  .navbar .container{
+    height: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navbar-menu{
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 15px;
+    margin-top: 25px;
+  }
+  
+  .navbar-menu li{
+    display: inline-block;
+  }
+  
+  .navbar-menu li a{
+    color: #ffffff;
+    font-size: 20px;
+    text-decoration: none;
+    opacity: 0.7;
+    padding: 30px;
+    transition: all 0.25s ease-in-out;
+  }
+  
+  .navbar-menu li a:hover{
+    opacity: 1;
+  }
+  
+  .callback{
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 18px;
+    margin-left: 40px;
+    margin-right: 15px;
+    padding-right: 250px;
+  }
+  
+  .callback li{
+    display: inline-block;
+    font-size: 20px;
+  }
+  
+  .callback li a{
+    text-decoration: none;
+  }
+  
+  .navbar-wrap{
+    display: flex;
+    flex-flow: row nowrap;
+  }
+  
+  /* --------- btn --------- */
+  .btn-flip {
+    opacity: 1;
+    outline: 0;
+    color: #fff;
+    line-height: 40px;
+    position: relative;
+    text-align: center;
+    letter-spacing: 1px;
+    display: inline-block;
+    text-decoration: none;
+    font-family: 'TTNormsProRegular';
+    font-size: 18px;
+  }
+  .btn-flip:hover:after {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+  .btn-flip:hover:before {
+    opacity: 0;
+    transform: translateY(50%) rotateX(90deg);
+  }
+  .btn-flip:after {
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    color: #4b4b4b;
+    display: block;
+    transition: 0.5s;
+    position: absolute;
+    background: rgba(212, 255, 242, 0.7);
+    content: attr(data-back);
+    transform: translateY(-50%) rotateX(90deg);
+  }
+  .btn-flip:before {
+    top: 0;
+    left: 0;
+    opacity: 1;
+    color: #171718da;
+    display: block;
+    padding: 0 30px;
+    line-height: 40px;
+    transition: 0.5s;
+    position: relative;
+    background: rgba(255, 255, 255, 0.45);
+    content: attr(data-front);
+    transform: translateY(0) rotateX(0);
+  }
+  /* -------------------- */
+  
+  
+  .com_bot{
+    margin: 0;
+    padding-top: 20px;
+  
+  }
+  
+  .refer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 20px;
+  }
+  
+
+  /* ------- Новости ------- */
+
+  .news-container{
+    margin-left: 229px;
+    margin-right: 229px;
+  }
+
+  .news-tab-items{
+    margin-top: 102px;
+    margin-bottom: 127px;
+  }
+
+  .block-1{
+    color: #3c6346;
+    margin-bottom: 12px;
+    padding-right: 10px;
+  }
+
+  .block-2{
+    color: #3c6346;
+    font-size: 25px;
+  }
+
+  .block-3{
+    font-size: 20px;
+    color: #3c6346;
+  }
+
+  .block-4{
+    color: #3c6346;
+    font-size: 20px;
+  }
+
+  /* -------- Категории под постом -------- */
+
+  .categ-btn{
+    border: 2px solid #3c6346;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 15px;
+    color: #3c6346;
+    background-color: #a9c9b1;
+    opacity: 0.8;
+    transition: all 0.25s ease-in-out;
+  }
+
+  .categ-btn:hover{
+    opacity: 1;
+  }

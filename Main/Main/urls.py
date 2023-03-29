@@ -25,6 +25,7 @@ urlpatterns = [
     path('reg/', views.registration_page),
     path('log/', views.login_page),
     path('create_post/', views.post_create_page),
-    path('posts/', views.posts)
+    path('posts/', views.posts),
+    path('post/', views.post)
 ]
 
