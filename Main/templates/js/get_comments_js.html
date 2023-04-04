@@ -1,0 +1,41 @@
+
+
+
+<html>
+
+
+    <script>
+
+        function get_comment(id) {
+            comments = document.getElementById('comments')
+            $.ajax({
+                url: 'http://127.0.0.1:8000/post/get_comments?cid=' + id,     /* Куда пойдет запрос */
+                method: 'get',                                                /* Метод передачи (post или get) */
+                dataType: 'json',                                             /* Тип данных в ответе (xml, json, script, html). */
+                success: function(data){                                      /* функция которая будет выполнена после успешного запроса.  */
+
+                    for (var i = 0; i < data['comments'].length; i++) {
+                        element = data['comments'][i];
+
+                        text = element['text']
+                        console.log(element['text'])
+
+                        data = element['dat']
+                        console.log(element['dat'])
+
+                        name = element['name']
+                        console.log(element['name'])
+
+                        parent = element['parent']
+                        console.log(element['parent'])
+
+                        comments.innerHTML += ('<div class = "com"> <p>' + text + '</p> <p>' + data + '</p> <p>' + name + ' </p> </div>')
+                    }
+                }
+            });
+
+        }
+
+    </script>
+
+</html>

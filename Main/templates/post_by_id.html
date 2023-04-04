@@ -6,7 +6,10 @@
     <title>News</title>
     <link rel="shortcut icon" href="{% static '/img/m_logo (1).ico'%}">
     <link rel="stylesheet" href="{% static '/css/single_post.css' %}">
-    <!-- <link rel="stylesheet" href="{% static '/css/sus.css' %}"> -->
+
+    <script src="{% static '/js/jquery-3.6.3.js' %}" ></script>
+
+    <!-- <link rel="stylesheet" href="{% static '/css/sus.css' %}">  -->
     <style>
         @font-face{
             font-family:'TTNormsProRegular';
@@ -52,12 +55,14 @@
                 </div>
                 
                 <div class="block-4">
-                    <H4><a class="categ-btn" href="#" style="text-decoration: none;">{{post.CategoryID.category}}</a></H4>
+                    <H4><a class="categ-btn" href="category/?&cid={{post.CategoryID.id}}" style="text-decoration: none;">{{post.CategoryID.category}}</a></H4>
                     <!-- Автор: {{post.UserID.Login}} -->
                 </div>
             </div>
         </div>
     </div>
+
+    <div id="comments"> </div>
 
 
     <div id="jump" class="cotacts" style="height: 20vh; background-color: #3b3b3b;" >
@@ -68,4 +73,12 @@
         </ul>
     </div>
 </body>
+
+
+    {% include 'js/get_comments_js.html' %}
+    <script>
+        get_comment( {{ post.id }} )
+    </script>
+
+
 </html>

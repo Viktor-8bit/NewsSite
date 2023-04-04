@@ -2,11 +2,12 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import *
 import hashlib
+import json
 
 #страницы храняться по адресу NewsSite\Main\site_pages
 # тестовый аккаунт - login: AMOGUS pass:  9E6-rH9-Ad9-FE6
 
-def registration_page(request):
+def registration_page(request): # 127.0.0.1:8000/reg/
     if request.method == 'GET':
         return render(request, 'reg.html', { 'reg': RegForm() })
     elif request.method == 'POST':
@@ -32,7 +33,7 @@ def registration_page(request):
 
         return HttpResponse('Вы скорее всего успешно зарегистрированы 😎')
 
-def login_page(request):
+def login_page(request): # 127.0.0.1:8000/log/
     if request.method == 'GET':
         return render(request, 'login.html', {'login': LoginFrom()})
     elif request.method == 'POST':
@@ -56,19 +57,14 @@ def login_page(request):
                 return render(request, 'login.html', {'login': LoginFrom(), 'error': 'упс, где-то произошла ошибочка ☕'})
     return HttpResponse('неизвестная ошибка 🕷🕸')
 
-def Post(request):
-    posts = Posts.objects.order_by('-id')[:10]
-    print(posts)
-    return HttpResponse('hello page')
 
-def index(request):
-    count = len(Posts.objects.all())
-    posts = Posts.objects.filter(id__range =(0, 10))
-    # return HttpResponse('hello page')
+def index(request): # 127.0.0.1:8000/
+    # count = (Posts.objects.count())
+    posts = Posts.objects.order_by('-id')[0:9]
+    #posts = Posts.objects.filter(id__range =(0, 10))
     return render(request, 'main_page.html', { 'posts' : posts } )
-    # return render(request, 'test.html')
 
-def post_create_page(request):
+def post_create_page(request): # 127.0.0.1:8000/create_post/
     if request.method == 'POST':
         shadowlogin = ShadowLoginForm(request.POST)
         createpostfrom = PostForm(request.POST)
@@ -99,19 +95,42 @@ def post_create_page(request):
         return render(request, 'create_post.html', { 'create_post' : PostForm(), 'shadow_login' : ShadowLoginForm() })
 
 
-
-def posts(request):
-    count = len(Posts.objects.all())
-    # берём последние десять постов
-    posts = Posts.objects.filter(id__range =(0, 10))
-
-    return render(request, 'get_post_test.html', { 'posts' : posts } )
-
-def post(request):
+def post(request): # 127.0.0.1:8000/post/
     if request.method == 'GET':
         try:
             id = int(request.GET['postid'])
             post = Posts.objects.get(id=id)
             return render(request, 'post_by_id.html', { 'post' : post })
         except Exception as ex:
-            return HttpResponse('ошибка доступа 🤷‍♀️🤷‍♂️')
+            return HttpResponse(f'ошибка {ex.args[0]}')
+
+def post_by_category(request): # 127.0.0.1:8000/post/category/
+    try:
+        id = int(request.GET['cid']) # в базе есть 9 и 3
+        posts = Posts.objects.filter(CategoryID=PostCategory.objects.get(id=id))
+        return render(request, 'get_post_by_category.html', {'posts' : posts})
+
+    except Exception as ex:
+        print(ex.args[0])
+        return HttpResponse(ex.args[0])
+
+def get_comments(request): # 127.0.0.1:8000/post/get_comments
+    if request.method == 'GET':
+        try:
+            post_id = int(request.GET['cid'])
+            coments = Comments.objects.filter(PostID = post_id)
+
+            to_return = { 'comments' : [] }
+
+            for com in coments:
+                if com.ParentCommentID is None:
+                    to_return['comments'].append( { 'text' : str(com.CommentText), 'dat' : str(com.Datee), 'name' : com.UserID.Login, 'parent' : com.ParentCommentID } )
+                else:
+                    pass
+            print(to_return['comments'])
+
+
+            return HttpResponse( json.dumps(to_return, ensure_ascii=False)); # json.dumps( {'sus' : ['dfdf', 'fdfdf', 'dfdds'] } | json.dumps(coments.__dict__)
+        except Exception as ex:
+            print(f"ошибка получения комментариев {ex.args[0]}")
+            return HttpResponse(f"ошибка получения комментариев {ex.args[0]}")

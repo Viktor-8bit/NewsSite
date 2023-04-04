@@ -8,7 +8,7 @@
     <title>InfoGroup</title>
     <link rel="shortcut icon" href="static/img/m_logo (1).ico">
     <link rel="stylesheet" href="static/css/sus.css">
-    <link rel="stylesheet" href="static/css/post.css">
+    <link rel="stylesheet" href="{% static 'css/post.css' %}">
     <style>
         @font-face{
             font-family:'TTNormsProRegular';
@@ -44,6 +44,7 @@
     <div >
         <h2 align="center" style="color: #3c6346; font-size: 40px;">Последние новости</h2>
         <div align="center" class="grid">
+
             {% for p in posts %}
 
               <div class="grid-item border">

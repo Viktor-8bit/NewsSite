@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
 from _NewsSite import views
 
 
@@ -25,7 +24,8 @@ urlpatterns = [
     path('reg/', views.registration_page),
     path('log/', views.login_page),
     path('create_post/', views.post_create_page),
-    path('posts/', views.posts),
-    path('post/', views.post)
+    path('post/', views.post),
+    path('post/category/', views.post_by_category),
+    path('post/get_comments', views.get_comments)
 ]
 
