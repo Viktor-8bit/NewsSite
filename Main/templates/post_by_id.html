@@ -7,7 +7,9 @@
     <link rel="shortcut icon" href="{% static '/img/m_logo (1).ico'%}">
     <link rel="stylesheet" href="{% static '/css/single_post.css' %}">
 
+
     <script src="{% static '/js/jquery-3.6.3.js' %}" ></script>
+    <script type="text/javascript" src="{% static '/js/cookie/jquery.cookie.js' %}"></script>
 
     <!-- <link rel="stylesheet" href="{% static '/css/sus.css' %}">  -->
     <style>
@@ -62,7 +64,21 @@
         </div>
     </div>
 
-    <div id="comments"> </div>
+        <form id="send_data" action="/post/?&postid={{post.id}}/" method="post">
+            {% csrf_token %}
+            
+            <div align="center" class = 'form-group'>
+                <p>Оставьте комментарий</p>
+                {{ comentform.as_p }}
+                {{ shadow_login }}
+                <p class="error">{{ error }}</p>
+                
+                <button onclick='shadowlogin()' type="submit">Отправить</button>
+            </div>
+        </form>
+
+
+    <div id="comments" class="comments"> </div>
 
 
     <div id="jump" class="cotacts" style="height: 20vh; background-color: #3b3b3b;" >
@@ -76,6 +92,8 @@
 
 
     {% include 'js/get_comments_js.html' %}
+    {% include 'js/shadow_login_js.html' %}
+
     <script>
         get_comment( {{ post.id }} )
     </script>

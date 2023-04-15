@@ -26,10 +26,24 @@
                     <li><a href="#jump">Контакты</a></li>
                     <li><a href="#">Категории</a></li>
                 </ul>
-                <ul class="callback">
-                    <li><a href="http://127.0.0.1:8000/reg/" class="btn-flip" data-back="Регистрация" data-front="Регистрация"></a></li>
-                    <li><a href="http://127.0.0.1:8000/log/" class="btn-flip" data-back="Вход" data-front="Вход"></a></li>
-                </ul>
+
+                {% if log == False %} <!-- пользователь не вошёл -->
+
+                    <ul class="callback">
+                        <li><a href="http://127.0.0.1:8000/reg/" class="btn-flip" data-back="Регистрация" data-front="Регистрация"></a></li>
+                        <li><a href="http://127.0.0.1:8000/log/" class="btn-flip" data-back="Вход" data-front="Вход"></a></li>
+                    </ul>
+
+                {% else %} <!-- пользователь вошёл -->
+
+                    <ul class="callback">
+                        <li><a href="http://127.0.0.1:8000/log/" class="btn-flip" data-back="Выход" data-front="Выход"></a></li>
+                        <img width='50px' height='50px' src='https://pixelbox.ru/wp-content/uploads/2022/05/avatar-lyagushka-pixelbox.ru-93-768x768.jpg'>Привет, |имя пользователя|
+                    </ul>
+
+                {% endif %}
+
+
             </div>
         </div>
     </nav>
@@ -49,7 +63,8 @@
 
               <div class="grid-item border">
                 <h4><a href="http://127.0.0.1:8000/post/?&postid={{p.id}}" class="href_text">{{p.Title}}</a></h4>
-                <h6 class="grid-h6">{{p.Datee}}</h6>
+                <h6 class="grid-h6">{{p.Datee }}</h6> 
+                <!-- |date:"F d Y" -->
               </div>
 
             {% endfor  %}

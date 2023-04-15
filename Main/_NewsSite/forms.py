@@ -106,3 +106,15 @@ class PostForm(forms.ModelForm):
     #    empty_label=None,
     #    label='категория'
     #)
+
+class commentform(forms.ModelForm):
+
+    class Meta:
+        model = Comments
+        fields = ['CommentText']
+
+    CommentText = forms.CharField(
+        widget=forms.Textarea,
+        max_length=10000,
+        label=''
+    )

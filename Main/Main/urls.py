@@ -16,16 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from _NewsSite import views
-
+from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
-    path('admin/', admin.site.index),
+    path('admin/', admin.site.urls),
     path('', views.index),
     path('reg/', views.registration_page),
     path('log/', views.login_page),
     path('create_post/', views.post_create_page),
     path('post/', views.post),
     path('post/category/', views.post_by_category),
-    path('post/get_comments', views.get_comments)
+    path('post/get_comments', views.get_comments),
+    path('logout/', views.logout),
+    path('test/', views.Index.as_view()),
+    path('token/', obtain_auth_token),
+    # path('test/', views.example_view),
 ]
 

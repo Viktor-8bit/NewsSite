@@ -4,9 +4,23 @@
 <html>
 
 
-    <script>
+    <style>
+        .comments {
+            align-self: center;
+        }
+        .com {
+            margin-left: 35%;
+            width: 600px;
+            height: 150px;
+        }
+    </style>
 
-        function get_comment(id) {
+    <script>
+        // jquery
+        Login = $.cookie('log')
+        Password = $.cookie('pass')
+
+        async function get_comment(id) {
             comments = document.getElementById('comments')
             $.ajax({
                 url: 'http://127.0.0.1:8000/post/get_comments?cid=' + id,     /* Куда пойдет запрос */
@@ -16,26 +30,52 @@
 
                     for (var i = 0; i < data['comments'].length; i++) {
                         element = data['comments'][i];
-
+                        
                         text = element['text']
-                        console.log(element['text'])
-
                         dat = element['dat']
-                        console.log(element['dat'])
-
                         name = element['name']
-                        console.log(element['name'])
-
                         parent = element['parent']
-                        console.log(element['parent'])
+                        id = element['id']
+                        console.log(element)
 
-                        comments.innerHTML += ('<div class = "com"> <p>' + text + '</p> <p>' + dat + '</p> <p>' + name + ' </p> </div>')
+                        comment = `
+                                    <div class = "com" id=${id}> 
+                                    
+                                        <p>${name}</p> 
+                                        
+                                        <p>${text}</p> 
+                                        
+                                        <p>${dat}</p>
+                                    `
+
+                        if (name == Login) {
+                            comment += `<button onclick="delete_comment(${id})">Удалить</button>`
+                            comment += `<button onclick="update_comment(${id})">Изменить</button>`
+                        }                
+                                    
+                        comment += '</div>'
+
+                        $('div.comments').add(comment).appendTo(comments)
                     }
                 }
             });
+        }
 
+        async function delete_comment(id) {
+            Login = $.cookie('log')
+            Password = $.cookie('pass')
+
+
+        }
+
+        async function update_comment(id) {
+            Login = $.cookie('log')
+            Password = $.cookie('pass')
         }
 
     </script>
 
 </html>
+
+
+<!--'<div class = "com"> <p>' + dat + '</p> <p>' + text + '</p> <p>' + name + ' </p> </div>'-->

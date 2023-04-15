@@ -6,21 +6,37 @@ class Users(models.Model):
     email = models.CharField(max_length=255, blank=False, null=False)
     password = models.CharField(max_length=255, blank=False, null=False)
     role = models.PositiveIntegerField(default=1)
-    is_blocked = models.BooleanField(default=False)
-    date_create = models.DateTimeField(auto_now_add=True)
-    #phone = models.CharField(max_length=11, balnk=False, null=False)
 
+
+
+    is_blocked = models.BooleanField(default=False)
+
+    date_create = models.DateTimeField(auto_now_add=True)
+    #phone = models.CharField(max_length=11, null=True)
+    class Meta:
+        verbose_name = 'Пользователи'
+        ordering = [ 'date_create' ]
+    def __str__(self):
+        return 'Пользователь: {}'.format(self.Login)
 
 class UserPhoto(models.Model):
 
     UserId = models.ForeignKey(Users, on_delete=models.DO_NOTHING, blank=False, null=False)
-
     exist = models.BooleanField(default=False)
     photo = models.ImageField(upload_to='users_photos/')
 
+    class Meta:
+        verbose_name = 'Аватарки'
+    def __str__(self):
+        return 'Фото: {}'.format(self.UserId)
 
 class PostCategory(models.Model):
     category = models.CharField(max_length=255)
+    class Meta:
+        verbose_name = 'Категории'
+        ordering = [ 'category' ]
+    def __str__(self):
+        return 'Категория: {}'.format(self.category)
 
 class Posts(models.Model):
 
@@ -32,13 +48,25 @@ class Posts(models.Model):
     Datee = models.DateTimeField(auto_now_add=True, null=True)
 
 
+    class Meta:
+        verbose_name = 'Посты'
+        ordering = [ 'Datee' ]
+
+    def __str__(self):
+        return 'Пост: {}'.format(self.Title)
+
 
 class Comments(models.Model):
 
-    ParentCommentID = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
+    ParentCommentID = models.ForeignKey('self', on_delete=models.CASCADE, null=True, default = None)
     PostID = models.ForeignKey(Posts, on_delete=models.CASCADE)
     UserID = models.ForeignKey(Users, on_delete=models.CASCADE)
 
     CommentText = models.CharField(max_length=255)
     Datee = models.DateTimeField(auto_now_add=True, null=True)
 
+    class Meta:
+        verbose_name = 'Коментарии'
+        ordering = [ 'Datee' ]
+    def __str__(self):
+        return 'Коментарий: {}'.format(self.CommentText)
