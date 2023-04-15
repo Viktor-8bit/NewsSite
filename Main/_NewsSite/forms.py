@@ -16,7 +16,7 @@ class LoginFrom(forms.ModelForm):
         widget=forms.PasswordInput(
             attrs={
                 'placeholder': 'введите пароль',
-                'class': 'form-conrol'
+                'class': 'form-conrol cluwn'
             }
         )
     )
