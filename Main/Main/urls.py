@@ -1,35 +1,28 @@
-"""Main URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
 from _NewsSite import views
 from rest_framework.authtoken.views import obtain_auth_token
+from django.urls import path, include
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+
     path('', views.index),
-    path('reg/', views.registration_page),
-    path('log/', views.login_page),
     path('create_post/', views.post_create_page),
     path('post/', views.post),
     path('post/category/', views.post_by_category),
     path('post/get_comments', views.get_comments),
-    path('logout/', views.logout),
-    path('test/', views.Index.as_view()),
+
     path('token/', obtain_auth_token),
+    path('login/', views.my_login),
+    path('reg/', views.registration_page),
+    path('logout/', views.my_logout),
+    path('debug/', views.debug),
+    path('admin/', admin.site.urls),
+#    path('login/', views.LoginView.as_view(), name='login'),
+    # url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
+    # url(r'^account/', include('allauth.urls')),
+
     # path('test/', views.example_view),
 ]
 

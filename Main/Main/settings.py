@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-+mypoj)c-)yca9r9)*&l3s37w9d@gogw)j0kd(q=kf_y3tu67i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.101', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.0.105', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -41,11 +41,20 @@ INSTALLED_APPS = [
     '_NewsSite',
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
 ]
+
+AUTH_USER_MODEL = '_NewsSite.MyUsers'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+
     ],
 }
 
@@ -79,7 +88,6 @@ TEMPLATES = [
 
 
 WSGI_APPLICATION = 'Main.wsgi.application'
-
 
 
 

@@ -2,6 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from .models import *
+from rest_framework.authtoken.models import Token
 
 
 class UsersAdmin(admin.ModelAdmin):
@@ -12,7 +13,7 @@ class UsersAdmin(admin.ModelAdmin):
     list_filter = ['is_blocked']
 
 
-admin.site.register(Users, UsersAdmin)
+admin.site.register(MyUsers, UsersAdmin)
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ['id', 'Title', 'Text', 'UserID', 'CategoryID', 'Datee']
@@ -34,3 +35,6 @@ class CommentsAdmin(admin.ModelAdmin):
 admin.site.register(Comments, CommentsAdmin)
 
 admin.site.register(UserPhoto)
+
+
+# admin.site.register(Token)

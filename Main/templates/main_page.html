@@ -27,21 +27,29 @@
                     <li><a href="#">Категории</a></li>
                 </ul>
 
-                {% if log == False %} <!-- пользователь не вошёл -->
 
-                    <ul class="callback">
+                <ul class="callback">
+
+                    {% if not user.is_authenticated %}
+
                         <li><a href="http://127.0.0.1:8000/reg/" class="btn-flip" data-back="Регистрация" data-front="Регистрация"></a></li>
-                        <li><a href="http://127.0.0.1:8000/log/" class="btn-flip" data-back="Вход" data-front="Вход"></a></li>
-                    </ul>
+                        <li><a href="http://127.0.0.1:8000/login/" class="btn-flip" data-back="Вход" data-front="Вход"></a></li>
 
-                {% else %} <!-- пользователь вошёл -->
+                    {% else %}
 
-                    <ul class="callback">
-                        <li><a href="http://127.0.0.1:8000/log/" class="btn-flip" data-back="Выход" data-front="Выход"></a></li>
-                        <img width='50px' height='50px' src='https://pixelbox.ru/wp-content/uploads/2022/05/avatar-lyagushka-pixelbox.ru-93-768x768.jpg'>Привет, |имя пользователя|
-                    </ul>
+                        <li><a href="http://127.0.0.1:8000/logout/?&redir=//" class="btn-flip" data-back="Выход" data-front="Выход"></a></li>
+                        <li>{{ user.Login }}</li>
 
-                {% endif %}
+                    {% endif %}
+
+                </ul>
+
+
+<!--                    <ul class="callback">-->
+<!--                        <li><a href="http://127.0.0.1:8000/log/" class="btn-flip" data-back="Выход" data-front="Выход"></a></li>-->
+<!--                        <img width='50px' height='50px' src='https://pixelbox.ru/wp-content/uploads/2022/05/avatar-lyagushka-pixelbox.ru-93-768x768.jpg'>Привет, |имя пользователя|-->
+<!--                    </ul>-->
+
 
 
             </div>

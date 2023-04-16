@@ -5,11 +5,15 @@ import hashlib
 
 
 
-class LoginFrom(forms.ModelForm):
-    class Meta:
-        model = Users
-        fields = [ 'Login', 'password' ]
+class LoginFrom(forms.Form):
+    # class Meta:
+    #     model = MyUsers
+    #     fields = [ 'Login', 'password' ]
 
+    Login = forms.CharField(
+        max_length=255,
+        label='логин'
+    )
     password = forms.CharField(
         max_length=255,
         label='Введите пароль',
@@ -29,7 +33,7 @@ class RegForm(forms.ModelForm):
             raise ValidationError("пароли не совпадают 💢")
 
     class Meta:
-        model = Users
+        model = MyUsers
         fields = [ 'Login', 'email', 'password' ]
 
     password = forms.CharField(
@@ -59,7 +63,7 @@ class ShadowLoginForm(forms.Form):
     def check_access(self):
         login = self.cleaned_data['Login']
         passwd = hashlib.sha256(bytes(self.cleaned_data['password'], 'utf-8')).hexdigest()
-        User_count = Users.objects.filter(Login=login, password=passwd)
+        User_count = MyUsers.objects.filter(Login=login, password=passwd)
         if len(User_count) > 0:
             return User_count[0]
 
@@ -100,12 +104,6 @@ class PostForm(forms.ModelForm):
         label=''
     )
 
-
-    #CategoryID = forms.ModelChoiceField(
-    #   queryset = PostCategory.objects.all(),
-    #    empty_label=None,
-    #    label='категория'
-    #)
 
 class commentform(forms.ModelForm):
 

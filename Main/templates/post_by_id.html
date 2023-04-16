@@ -30,8 +30,19 @@
                     <li><a href="#">Категории</a></li>
                 </ul>
                 <ul class="callback">
-                    <li><a href="http://127.0.0.1:8000/reg/" class="btn-flip" data-back="Регистрация" data-front="Регистрация"></a></li>
-                    <li><a href="http://127.0.0.1:8000/log/" class="btn-flip" data-back="Вход" data-front="Вход"></a></li>
+
+                    {% if not user.is_authenticated %}
+
+                        <li><a href="http://127.0.0.1:8000/reg/" class="btn-flip" data-back="Регистрация" data-front="Регистрация"></a></li>
+                        <li><a href="http://127.0.0.1:8000/login/" class="btn-flip" data-back="Вход" data-front="Вход"></a></li>
+
+                    {% else %}
+
+                        <li><a href="http://127.0.0.1:8000/logout/?&redir=post/?%26postid={{post.id}}/" class="btn-flip" data-back="Выход" data-front="Выход"></a></li>
+                        <li>{{ user.Login }}</li>
+
+                    {% endif %}
+
                 </ul>
             </div>
         </div>

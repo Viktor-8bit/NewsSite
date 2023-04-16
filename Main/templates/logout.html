@@ -36,9 +36,22 @@
         <button type="button" class="btn btn-success" onclick="clean()">Clean</button>
         <button type="button" class="btn btn-success" onclick="check()">Check</button>
 
+        <button type="button" class="btn btn-success" onclick="login()">login</button>
+        <button type="button" class="btn btn-success" onclick="logout()">logout</button>
+
+
 </div>
 
     <script>
+
+        function login() {
+            session_token = 'v2xug6v0208fsd4st10hp1pk0klgi4zp'
+            $.cookie('sessionid', session_token, { path: '/' } )
+        }
+
+        function logout() {
+            $.removeCookie("sessionid", { path: '/' });
+        }
 
         function check() {
             console.clear()
@@ -60,8 +73,8 @@
 
         function clean() {
             console.clear()
-            $.removeCookie("log");
-            $.removeCookie("pass");
+            $.removeCookie("log", { path: '/' });
+            $.removeCookie("pass", { path: '/' });
         }
     
     </script>
