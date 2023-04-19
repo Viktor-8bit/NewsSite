@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- <meta name="csrf-token" content="{% csrf_token %}"> -->
     <title>News</title>
     <link rel="shortcut icon" href="{% static '/img/m_logo (1).ico'%}">
     <link rel="stylesheet" href="{% static '/css/single_post.css' %}">
@@ -81,7 +82,6 @@
             <div align="center" class = 'form-group'>
                 <p>Оставьте комментарий</p>
                 {{ comentform.as_p }}
-                {{ shadow_login }}
                 <p class="error">{{ error }}</p>
                 
                 <button onclick='shadowlogin()' type="submit">Отправить</button>
@@ -103,9 +103,9 @@
 
 
     {% include 'js/get_comments_js.html' %}
-    {% include 'js/shadow_login_js.html' %}
 
     <script>
+        // const post_id = {{ post.id }}
         get_comment( {{ post.id }} )
     </script>
 

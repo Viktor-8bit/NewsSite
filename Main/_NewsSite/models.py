@@ -75,7 +75,6 @@ class Posts(models.Model):
     def __str__(self):
         return 'Пост: {}'.format(self.Title)
 
-
 class Comments(models.Model):
 
     ParentCommentID = models.ForeignKey('self', on_delete=models.CASCADE, null=True, default = None)

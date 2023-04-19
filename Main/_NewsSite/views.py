@@ -1,5 +1,5 @@
-from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
 from .forms import *
 import hashlib
 import json
@@ -11,16 +11,16 @@ from rest_framework.views import APIView
 from django.shortcuts import redirect
 
 from rest_framework.decorators import api_view, permission_classes
-
-from rest_framework import serializers
 from rest_framework.authtoken.models import Token
+from rest_framework import serializers
 
-from .managers import *
 
-from rest_framework import status
+from django.contrib.auth import authenticate
 from django.contrib.auth import logout
 from django.contrib.auth import login
-from django.contrib.auth import authenticate
+from rest_framework import status
+from .managers import *
+
 
 
 #страницы храняться по адресу NewsSite\Main\site_pages
@@ -52,8 +52,6 @@ def my_logout(request):
     else:
         return HttpResponse('(╯°□°）╯︵ ┻━┻ ЭТА ФУНКЦИЯ РАБОТАЕТ ТОЛЬКО С GET !!!')
 
-
-
 def registration_page(request): # 127.0.0.1:8000/reg/
     if request.method == 'GET':
         return render(request, 'reg.html', { 'reg': RegForm() })
@@ -78,7 +76,6 @@ def registration_page(request): # 127.0.0.1:8000/reg/
 
         return redirect('/')
 
-
 def index(request): # 127.0.0.1:8000/
     posts = Posts.objects.order_by('-id')[0:10]  # posts = Posts.objects.filter(id__range =(0, 10))
 
@@ -96,7 +93,7 @@ def index(request): # 127.0.0.1:8000/
         else:
             return HttpResponse('что-то пошло не так упс ╰(*°▽°*)╯')
     else:
-        return render(request, 'main_page.html', { 'posts' : posts, 'user': request.user } )
+        return render(request, 'main_page.html', { 'posts' : posts } )
 
 def post_create_page(request): # 127.0.0.1:8000/create_post/
     if request.method == 'POST':
@@ -128,16 +125,16 @@ def post_create_page(request): # 127.0.0.1:8000/create_post/
     if request.method == 'GET':
         return render(request, 'create_post.html', { 'create_post' : PostForm() })
 
-
 def post(request): # 127.0.0.1:8000/post/
 
     if request.method == 'GET':
         try:
             id = int(request.GET['postid'])
             post = Posts.objects.get(id=id)
-            return render(request, 'post_by_id.html', { 'post' : post, 'comentform': commentform, 'shadow_login' : ShadowLoginForm()})
+            return render(request, 'post_by_id.html', { 'post' : post, 'comentform': commentform })
         except Exception as ex:
             print(f'ошибка {ex.args[0]}')
+
 
     if request.method == 'POST': # добавить комментарий
         try:
@@ -166,7 +163,6 @@ def post(request): # 127.0.0.1:8000/post/
         except Exception as ex:
             return render(request, 'post_by_id.html', {'post': post, 'comentform': commentform, 'error': ex.args[0]})
 
-
 def post_by_category(request): # 127.0.0.1:8000/post/category/
     try:
         id = int(request.GET['cid']) # в базе есть 9 и 3
@@ -176,6 +172,85 @@ def post_by_category(request): # 127.0.0.1:8000/post/category/
     except Exception as ex:
         print(ex.args[0])
         return HttpResponse(ex.args[0])
+
+def debug(request):
+    return render(request, 'logout.html')
+
+def delete_comment(request):
+
+    if request.method == 'GET':
+        print(request.user)
+        if not request.user.is_authenticated:
+            return HttpResponse('ВОЙДИТЕ СНАЧАЛА В АККАУНТ (╯°□°）╯︵ ┻━┻')
+        else:
+            try:
+                Login = request.user.Login
+                id = int(request.GET['id'])
+                post_id = int(request.GET['pid'])
+
+                if id != None:
+                    comment = Comments.objects.get(id = id)
+                    print(comment, id)
+                    if comment.UserID.Login == Login:
+                        print(comment)
+                        comment.delete()
+                        coments = Comments.objects.filter(PostID=post_id).order_by('-Datee')
+                        to_return = {'comments': []}
+                        for com in coments:
+                            if com.ParentCommentID is None:
+                                to_return['comments'].append(
+                                    {'id': str(com.id), 'text': str(com.CommentText), 'dat': str(com.Datee)[0:19], 'name': com.UserID.Login, 'parent': com.ParentCommentID})
+                            else:
+                                pass
+
+                        return HttpResponse(json.dumps(to_return, ensure_ascii=False));  # json.dumps( {'sus' : ['dfdf', 'fdfdf', 'dfdds'] } | json.dumps(coments.__dict__)
+                        #return HttpResponse('успех (¬‿¬)')
+                    else:
+                        return HttpResponse('НЕЛЬЗЯ УДАЛЯТЬ ЧУЖИЕ КОММЕНТАРИИ БЕЗ ПРАВ АДМИНИСТРАТОРА (╯°□°）╯︵ ┻━┻')
+
+            except Exception as ex:
+                return HttpResponse(f'опять ошибка: {ex.args[0]} (╯°□°）╯︵ ┻━┻')
+    else:
+        return HttpResponse('РАБОТАТЬ С delete_comment МОЖНО ТОЛЬКО ЧЕРЕЗ POST (╯°□°）╯︵ ┻━┻')
+
+def change_comment(request):
+
+    if request.method == 'GET':
+        print(request.user)
+        if not request.user.is_authenticated:
+            return HttpResponse('ВОЙДИТЕ СНАЧАЛА В АККАУНТ (╯°□°）╯︵ ┻━┻')
+        else:
+            try:
+                Login = request.user.Login
+                id = int(request.GET['id'])
+                post_id = int(request.GET['pid'])
+                text = request.GET['text']
+
+                if id != None:
+                    comment = Comments.objects.get(id = id)
+                    print(comment, id)
+                    if comment.UserID.Login == Login:
+                        comment.CommentText = text
+                        comment.save()
+                        print(comment)
+                        coments = Comments.objects.filter(PostID=post_id).order_by('-Datee')
+                        to_return = {'comments': []}
+                        for com in coments:
+                            if com.ParentCommentID is None:
+                                to_return['comments'].append(
+                                    {'id': str(com.id), 'text': str(com.CommentText), 'dat': str(com.Datee)[0:19], 'name': com.UserID.Login, 'parent': com.ParentCommentID})
+                            else:
+                                pass
+
+                        return HttpResponse(json.dumps(to_return, ensure_ascii=False));  # json.dumps( {'sus' : ['dfdf', 'fdfdf', 'dfdds'] } | json.dumps(coments.__dict__)
+                        #return HttpResponse('успех (¬‿¬)')
+                    else:
+                        return HttpResponse('НЕЛЬЗЯ УДАЛЯТЬ ЧУЖИЕ КОММЕНТАРИИ БЕЗ ПРАВ АДМИНИСТРАТОРА (╯°□°）╯︵ ┻━┻')
+
+            except Exception as ex:
+                return HttpResponse(f'опять ошибка: {ex.args[0]} (╯°□°）╯︵ ┻━┻')
+    else:
+        return HttpResponse('РАБОТАТЬ С delete_comment МОЖНО ТОЛЬКО ЧЕРЕЗ POST (╯°□°）╯︵ ┻━┻')
 
 def get_comments(request): # 127.0.0.1:8000/post/get_comments
     if request.method == 'GET':
@@ -192,13 +267,3 @@ def get_comments(request): # 127.0.0.1:8000/post/get_comments
             return HttpResponse( json.dumps(to_return, ensure_ascii=False)); # json.dumps( {'sus' : ['dfdf', 'fdfdf', 'dfdds'] } | json.dumps(coments.__dict__)
         except Exception as ex:
             return HttpResponse(f"ошибка получения комментариев {ex.args[0]}")
-
-def debug(request):
-    return render(request, 'logout.html')
-
-def delete_comment(request):
-
-    if request.method == 'POST':
-        pass
-    else:
-        pass

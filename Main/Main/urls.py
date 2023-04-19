@@ -12,6 +12,8 @@ urlpatterns = [
     path('post/', views.post),
     path('post/category/', views.post_by_category),
     path('post/get_comments', views.get_comments),
+    path('post/delete_comment', views.delete_comment),
+    path('post/change_comment', views.change_comment),
 
     path('token/', obtain_auth_token),
     path('login/', views.my_login),

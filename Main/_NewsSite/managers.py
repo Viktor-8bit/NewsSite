@@ -1,6 +1,5 @@
 from django.contrib.auth.base_user import BaseUserManager
 
-
 class CustomUserManager(BaseUserManager):
     """
      Диспетчер пользовательских моделей пользователей,
@@ -22,11 +21,13 @@ class CustomUserManager(BaseUserManager):
         MyUsers.set_password(password)
         MyUsers.save()
 
-
         return MyUsers
 
     def create_superuser(self, password, email = 'main@.ru',  **extra_fields):
-
+        '''
+            Нормально не работает (╯°□°）╯︵ ┻━┻
+            *потом исправить*
+        '''
         role = 'администратор'
         is_staff = True
         is_superuser = True
@@ -35,6 +36,5 @@ class CustomUserManager(BaseUserManager):
         MyUsers = self.model(email=email, **extra_fields)
         MyUsers.set_password(password)
         MyUsers.save()
-
 
         return MyUsers

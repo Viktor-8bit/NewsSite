@@ -21,6 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# он виден всему гитхабу (╯°□°）╯︵ ┻━┻
 SECRET_KEY = 'django-insecure-+mypoj)c-)yca9r9)*&l3s37w9d@gogw)j0kd(q=kf_y3tu67i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -92,7 +93,7 @@ WSGI_APPLICATION = 'Main.wsgi.application'
 
 
 
-# Database
+# Database это база
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
