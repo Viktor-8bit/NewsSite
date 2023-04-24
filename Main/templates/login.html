@@ -7,8 +7,8 @@
     <link type="text/css" href="{% static 'css/registration.css' %}" rel="stylesheet">
 </head>
 
-<body>
-    <div class="d-block p-2 bg-success text-white">Вход в аккаунт</div>
+<body class="h-100 h-custom" style="background-color: #8fc4b7;">
+    <!-- <div class="d-block p-2 bg-success text-white">Вход в аккаунт</div>
     <div class="container card w-50" id="form">
         {% if error %}
             <div class="d-block p-2 bg-warning text-white">{{ error }}</div>
@@ -32,7 +32,44 @@
                 <button type="submit" class="btn btn-success">Отправить</button>
             </form>
         </div>
-    </div>
+    </div> -->
+
+
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-8 col-xl-6">
+              <div class="card rounded-3">
+                <img src="https://www.prikol.ru/wp-content/gallery/july-2010/new-york-from-above-48.jpg"
+                  class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+                  alt="Sample photo">
+                <div class="card-body p-4 p-md-5">
+                    {% if error %}
+                        <div class="d-block p-2 bg-warning text-white">{{ error }}</div>
+                    {% endif %}
+                  <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Вход</h3>
+      
+                  <form id="send_data" action="/" method="post">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <label for="colFormLabel" class="col-sm-2 col-form-label">Login</label>
+                        <div class="col-sm-10">
+                            {{ login.Login }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="colFormLabel" class="col-sm-2 col-form-label">Пароль</label>
+                        <div class="col-sm-10">
+                            {{ login.password }}     
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success">Отправить</button>
+                </form>
+      
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 </body> 
 
 
