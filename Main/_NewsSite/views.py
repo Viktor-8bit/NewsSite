@@ -77,7 +77,7 @@ def registration_page(request): # 127.0.0.1:8000/reg/
         return redirect('/')
 
 def index(request): # 127.0.0.1:8000/
-    posts = Posts.objects.order_by('-id')[0:10]  # posts = Posts.objects.filter(id__range =(0, 10))
+    posts = Posts.objects.order_by('-id')[0:9]  # posts = Posts.objects.filter(id__range =(0, 10))
 
     if request.method == 'POST':
 

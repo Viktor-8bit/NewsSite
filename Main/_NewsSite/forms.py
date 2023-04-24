@@ -5,6 +5,11 @@ import hashlib
 
 class LoginFrom(forms.Form):
 
+    def __init__(self, *args, **kwargs):
+        super(LoginFrom, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
     Login = forms.CharField(
         max_length=255,
         label='логин'
@@ -16,12 +21,17 @@ class LoginFrom(forms.Form):
         widget=forms.PasswordInput(
             attrs={
                 'placeholder': 'введите пароль',
-                'class': 'form-conrol cluwn'
+                'class': 'form-control'
             }
         )
     )
 
 class RegForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(RegForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
 
     def clean(self):
         pass2 = self.cleaned_data['password1']
@@ -39,7 +49,7 @@ class RegForm(forms.ModelForm):
         widget = forms.PasswordInput (
             attrs = {
                 'placeholder' : 'введите пароль',
-                'class' : 'form'
+                'class' : 'form-control'
             }
         )
     )
@@ -50,7 +60,7 @@ class RegForm(forms.ModelForm):
         widget = forms.PasswordInput (
             attrs = {
                 'placeholder' : 'повторите пароль',
-                'class' : 'form'
+                'class' : 'form-control'
             }
         )
     )

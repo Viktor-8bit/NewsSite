@@ -2,11 +2,11 @@
     margin: 100px;
 } */
 
-body{
-    margin: 0px;
-}
+#form {
+    align-items: center;
 
-.forma{
-    justify-content: center;
-    margin: 200px;
+    padding-left: 25%;
+    box-sizing: border-box; 
+    padding: 1%;
+    
 }
