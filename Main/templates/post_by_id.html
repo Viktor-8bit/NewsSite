@@ -10,6 +10,8 @@
 
 
     <script src="{% static '/js/jquery-3.6.3.js' %}" ></script>
+    <link rel="stylesheet" href="{% static 'css/comments.css' %}">
+
     <script type="text/javascript" src="{% static '/js/cookie/jquery.cookie.js' %}"></script>
 
     <!-- <link rel="stylesheet" href="{% static '/css/sus.css' %}">  -->
@@ -102,10 +104,11 @@
 </body>
 
 
-    {% include 'js/get_comments_js.html' %}
+    <script type="text/javascript" src="{% static '/js/comment.js' %}"></script>
 
     <script>
         // const post_id = {{ post.id }}
+        set_const_name('{{user.Login }}')
         get_comment( {{ post.id }} )
     </script>
 
