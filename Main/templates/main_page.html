@@ -1,91 +1,90 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InfoGroup</title>
-    <link rel="shortcut icon" href="static/img/m_logo (1).ico">
-    <link rel="stylesheet" href="static/css/sus.css">
-    <link rel="stylesheet" href="{% static 'css/post.css' %}">
-    <style>
-        @font-face{
-            font-family:'TTNormsProRegular';
-            src: url(static/otf/TTNormsProRegular.otf);
-        }
-    </style>
-</head>
-<body style="font-family: 'TTNormsProRegular';">
-    <nav class="navbar">
-        <div class="container">
-            <img src="static/img/logo_test.png" class="logo_wrap"/>
-            <div class="navbar-wrap">
-                <ul class="navbar-menu">
-                    <li><a href="#">О нас</a></li>
-                    <li><a href="#jump">Контакты</a></li>
-                    <li><a href="#">Категории</a></li>
-                </ul>
-
-
-                <ul class="callback">
-
-                    {% if not user.is_authenticated %}
-
-                        <li><a href="http://127.0.0.1:8000/reg/" class="btn-flip" data-back="Регистрация" data-front="Регистрация"></a></li>
-                        <li><a href="http://127.0.0.1:8000/login/" class="btn-flip" data-back="Вход" data-front="Вход"></a></li>
-
-                    {% else %}
-
-                        <li><a href="http://127.0.0.1:8000/logout/?&redir=//" class="btn-flip" data-back="Выход" data-front="Выход"></a></li>
-                        <li>{{ user.Login }}</li>
-
-                    {% endif %}
-
-                </ul>
-
-
-<!--                    <ul class="callback">-->
-<!--                        <li><a href="http://127.0.0.1:8000/log/" class="btn-flip" data-back="Выход" data-front="Выход"></a></li>-->
-<!--                        <img width='50px' height='50px' src='https://pixelbox.ru/wp-content/uploads/2022/05/avatar-lyagushka-pixelbox.ru-93-768x768.jpg'>Привет, |имя пользователя|-->
-<!--                    </ul>-->
 
 
 
-            </div>
-        </div>
-    </nav>
-
-    <header class="header">
-        <div class="head_container">
-            <h2 class="header_title">АНАЛИЗИРУЕМ РИСКИ <p>НАХОДИМ ВОЗМОЖНОСТИ</p><p>ПРИНИМАЕМ РЕШЕНИЯ</p></h2>
-        </div>
-        <div class="header_overlay"></div>
-    </header>
+    <head>
+        <meta charset="UTF-8">
+        
+        <title>InfoGroup</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <div >
-        <h2 align="center" style="color: #3c6346; font-size: 40px;">Последние новости</h2>
-        <div align="center" class="grid">
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+            
+    </head>
 
-            {% for p in posts %}
+    <body>
 
-              <div class="grid-item border">
-                <h4><a href="http://127.0.0.1:8000/post/?&postid={{p.id}}" class="href_text">{{p.Title}}</a></h4>
-                <h6 class="grid-h6">{{p.Datee }}</h6> 
-                <!-- |date:"F d Y" -->
-              </div>
+      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #adadad;">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">InfoGroup</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/">Главная</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="#">О нас</a>
+              </li>
 
-            {% endfor  %}
+              <li class="nav-item">
+                {% if not user.is_authenticated %}
 
+                  <li><a class="nav-link active" href="http://127.0.0.1:8000/reg/">Регистрация</a></li>
+                  <li><a class="nav-link active" href="http://127.0.0.1:8000/login/">Вход</a></li>
+
+                {% else %}
+
+                  <li><a href="http://127.0.0.1:8000/logout/?&redir=//" class="nav-link active">Выход</a></li>
+                  <li><a class="nav-link active">{{ user.Login }}</a></li>
+
+                {% endif %}
+              </li>
+
+            </ul>
+
+          </div>
+        </div>
+      </nav>
+
+      <div class="container">
+        <figure class="figure">
+          <img src="https://abc-paper.ru/wp-content/uploads/2022/04/reshitelsost-v-biznese.jpg" class="figure-img img-fluid rounded" alt="...">
+          <figcaption class="figure-caption">Анализируем риски находим, находим возможности, принимаем решения.</figcaption>
+        </figure>
       </div>
+
+
+
+    
+      <div class="container">
+
+        <div class="row">
+ 
+
+      {% for p in posts %}
+
+          <div class="card" style="width: 20rem;">
+ 
+            <div class="card-body">
+              <h4 class="card-text"><p>{{p.Title}}</p></h4> <!-- название -->
+              <h6 class="card-text">{{p.Datee }}</h6> 
+              <a href="http://127.0.0.1:8000/post/?&postid={{p.id}}" class="card-link">Подробнее</a>
+            </div>
+ 
+          </div>
+      {% endfor  %}
+      
+    </div>
     </div>
 
-    <div id="jump" class="cotacts" style="height: 20vh; background-color: #3b3b3b;" >
-        <h2 class="com_bot" align="center" style="color: rgb(78, 136, 92);">Контакты</h2>
-        <ul class="refer">
-            <li><a href="https://github.com/Viktor-8bit/NewsSite" style="text-decoration: none; color: rgb(102, 184, 102); padding-right: 15px;">GitHub</a></li>
-            <li><a href="https://www.figma.com/file/oEnGj0biVRmjLDiXHrySVJ/Untitled?node-id=1-34&t=hG9COjllPPMJROUc-0" style="text-decoration: none; color: rgb(102, 184, 102);">Figma</a></li>
-        </ul>
-    </div>
-</body>
+
+
+    </body>
 </html>

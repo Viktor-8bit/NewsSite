@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    {% for p in posts %}
+
+    <p>________________________</p>
+
+    <a href="http://127.0.0.1:8000/post/?&postid={{p.id}}">
+        <p>{{p.Datee}}</p>
+        <p>{{p.Title}}</p>
+        <p>{{p.CategoryID.category}}</p>
+    </a>
+
+    {% endfor  %}
+
+</body>
+</html>

@@ -22,8 +22,8 @@
         }
 
         let post_id
-        // Login = $.cookie('log')
-        // Password = $.cookie('pass')
+        Login = $.cookie('log')
+        Password = $.cookie('pass')
         async function _get_com_from_server(data){                                      /* функция которая будет выполнена после успешного запроса.  */
                     comments = document.getElementById('comments')
                     comments.innerHTML = ''
@@ -63,12 +63,14 @@
         }
 
         async function delete_comment(id) {
-            $.get({
+            const del = $.get({
                 url: 'http://127.0.0.1:8000/post/delete_comment?&id=' + id + '&pid=' + post_id,     /* Куда пойдет запрос */
                 method: 'get',                                                /* Метод передачи (post или get) */
                 dataType: 'json',                                             /* Тип данных в ответе (xml, json, script, html). */
                 success: function(data) { _get_com_from_server(data) }
-            });
+            })
+            console.log(del)
+            del.then(function() { alert('hello') });
         }
 
         async function change_comment(id) {

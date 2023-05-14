@@ -17,7 +17,7 @@ cur = con.cursor()
 #
 #
 
-for i in range(891107, 891207):
+for i in range(891107, 891207): # 36 есть 
 
     URL_TEMPLATE = "https://www.interfax.ru/world/" + str(i)
 

@@ -181,3 +181,18 @@ p{
   padding-left: 0;
   font-size: 20px;
 }
+
+/*
+@media(max-width:800px) {
+    .grid {
+        width: 10px;
+    }
+    .grid-item border {
+        width: 10px;
+    }
+
+    .grid-item border {
+        width: 10px;
+    }
+}
+*/
