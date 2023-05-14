@@ -1,11 +1,12 @@
-    <style>
-        .comments {
-            align-self: center;
-        }
-        .com {
-            margin-left: 35%;
-            margin-bottom: 1%;
-            width: 600px;
+
+#comments {
+    align-self: center;
+
+}
+.com {
+    margin-left: 35%;
+    margin-bottom: 1%;
+    width: 30%;
             /* height: 150px; */
-        }
-    </style>
+}
+

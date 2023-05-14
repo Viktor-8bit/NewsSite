@@ -1,90 +1,44 @@
+
+
 {% load static %}
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 
-
-    <head>
-        <meta charset="UTF-8">
-        
-        <title>InfoGroup</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-        <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-            
-    </head>
-
+    <head></head>
     <body>
 
-      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #adadad;">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">InfoGroup</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/">Главная</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="#">О нас</a>
-              </li>
+      {% include 'header.html' %}
 
-              <li class="nav-item">
-                {% if not user.is_authenticated %}
-
-                  <li><a class="nav-link active" href="http://127.0.0.1:8000/reg/">Регистрация</a></li>
-                  <li><a class="nav-link active" href="http://127.0.0.1:8000/login/">Вход</a></li>
-
-                {% else %}
-
-                  <li><a href="http://127.0.0.1:8000/logout/?&redir=//" class="nav-link active">Выход</a></li>
-                  <li><a class="nav-link active">{{ user.Login }}</a></li>
-
-                {% endif %}
-              </li>
-
-            </ul>
-
-          </div>
-        </div>
-      </nav>
-
-      <div class="container">
-        <figure class="figure">
-          <img src="https://abc-paper.ru/wp-content/uploads/2022/04/reshitelsost-v-biznese.jpg" class="figure-img img-fluid rounded" alt="...">
-          <figcaption class="figure-caption">Анализируем риски находим, находим возможности, принимаем решения.</figcaption>
-        </figure>
-      </div>
-
-
-
-    
-      <div class="container">
-
-        <div class="row">
- 
-
-      {% for p in posts %}
-
-          <div class="card" style="width: 20rem;">
- 
-            <div class="card-body">
-              <h4 class="card-text"><p>{{p.Title}}</p></h4> <!-- название -->
-              <h6 class="card-text">{{p.Datee }}</h6> 
-              <a href="http://127.0.0.1:8000/post/?&postid={{p.id}}" class="card-link">Подробнее</a>
-            </div>
- 
-          </div>
-      {% endfor  %}
+      <div class="container p-5">
       
-    </div>
-    </div>
+        <div class="container">
+          <figure class="figure">
+            <img src="https://abc-paper.ru/wp-content/uploads/2022/04/reshitelsost-v-biznese.jpg" class="figure-img img-fluid rounded" alt="два человека в костюмах">
+            <figcaption class="figure-caption">Анализируем риски находим, находим возможности, принимаем решения.</figcaption>
+          </figure>
+        </div>
+        
+        <div class="row p-5">
+          {% for p in posts %}
+              <div class="card position-sticky" style="width: 20rem;">
+                <div class="col">
+                  <div class="card-body">
+                    <h4 class="card-text"><p>{{p.Title}}</p></h4>
+                    <h6 class="card-text">{{p.Datee }}</h6> 
+                    <a href="http://127.0.0.1:8000/post/?&postid={{p.id}}" class="card-link">Подробнее</a>
+                  </div>
+                </div>
+    
+              </div>
+          {% endfor  %}
+        </div>
 
-
-
-    </body>
+      </div>
+      {% include 'buttom.html' %}
+    
+  </body>
 </html>

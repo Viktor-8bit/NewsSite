@@ -42,8 +42,10 @@
                                     `
                         // проверка на возможность удаления
                         if (name == username) {
-                            comment += `<button onclick="delete_comment(${coment_id})">Удалить</button>`
-                            comment += `<button onclick="change_comment(${coment_id})">Изменить</button>`
+                            comment += '<div class="btn-group" role="group" aria-label="Basic example">'
+                            comment += `<button onclick="delete_comment(${coment_id})" class="btn btn-dark">Удалить</button>`
+                            comment += `<button onclick="change_comment(${coment_id})" class="btn btn-dark">Изменить</button>`
+                            comment += '</div>'
                         }
                         comment += '</div>'
                         $('div.comments').add(comment).appendTo(comments)
@@ -70,7 +72,7 @@
                 success: function(data) { _get_com_from_server(data) }
             })
             console.log(del)
-            del.then(function() { alert('hello') });
+            del.then(function() { alert('комментарий удалён') });
         }
 
         async function change_comment(id) {
@@ -78,13 +80,15 @@
             main_element = $(`[class='com'][id='${id}']`)
             stand_com = new Comment(main_element.children('.name').text(), main_element.children('.date').text(), main_element.children('.text').text())
             main_element.children('p').remove()
-            main_element.children('button').remove()
+            main_element.children('div').remove()
             comment_change = `
                                     <p class = "name">${stand_com.name}</p>
                                     <textarea class = "text" id = '${id}t'>${stand_com.text}</textarea>
                                     <p class = "date">${stand_com.date}</p>
-                                    <button onclick="Ok(${id})">ОК</button>
-                                    <button onclick='Clancell(${id}, "${stand_com.name}",  "${stand_com.text}",  "${stand_com.date}" )' >Отмена</button>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button onclick="Ok(${id})" class="btn btn-dark">ОК</button>
+                                        <button onclick='Clancell(${id}, "${stand_com.name}",  "${stand_com.text}",  "${stand_com.date}" )' class="btn btn-dark">Отмена</button>
+                                    </div>
                             `
             main_element.append(comment_change)
         }
@@ -104,14 +108,16 @@
             main_element = $(`[class='com'][id='${id}']`)
             main_element.children('textarea').remove()
             main_element.children('p').remove()
-            main_element.children('button').remove()
+            main_element.children('div').remove()
             comment_clacel =
                     `
                     <p class = "name">${name}</p>
                     <p class = "text">${text}</p>
                     <p class = "date">${date}</p>
-                    <button onclick="delete_comment(${id})">Удалить</button>
-                    <button onclick="change_comment(${id})">Изменить</button>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button onclick="delete_comment(${id})" class="btn btn-dark">Удалить</button>
+                        <button onclick="change_comment(${id})" class="btn btn-dark">Изменить</button>
+                    </div>
                     `
             main_element.append(comment_clacel)
         }

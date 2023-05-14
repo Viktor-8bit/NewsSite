@@ -77,7 +77,7 @@ def registration_page(request): # 127.0.0.1:8000/reg/
         return redirect('/')
 
 def index(request): # 127.0.0.1:8000/
-    posts = Posts.objects.order_by('-id')[0:9]  # posts = Posts.objects.filter(id__range =(0, 10))
+    posts = Posts.objects.order_by('-id')[0:12]  # posts = Posts.objects.filter(id__range =(0, 10))
 
     if request.method == 'POST':
 
@@ -267,3 +267,6 @@ def get_comments(request): # 127.0.0.1:8000/post/get_comments
             return HttpResponse( json.dumps(to_return, ensure_ascii=False)); # json.dumps( {'sus' : ['dfdf', 'fdfdf', 'dfdds'] } | json.dumps(coments.__dict__)
         except Exception as ex:
             return HttpResponse(f"ошибка получения комментариев {ex.args[0]}")
+
+def about_us(request):
+    return render(request, 'about.html')

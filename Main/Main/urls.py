@@ -8,6 +8,7 @@ from django.urls import path, include
 urlpatterns = [
 
     path('', views.index),
+    path('about_us/', views.about_us),
     path('create_post/', views.post_create_page),
     path('post/', views.post),
     path('post/category/', views.post_by_category),

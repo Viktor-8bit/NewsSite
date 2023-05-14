@@ -1,0 +1,34 @@
+
+
+
+$theme-color: #6d6d6d;
+$font-color: #fdfdfd;
+
+$button-color: #ce1818;
+$button-text-color: #ffffff;
+
+$bacground-color: #000000;
+
+.mynavbar {
+    background-color: $theme-color;
+    color: $font-color;
+}
+
+.mytext  {
+    color: $font-color;
+}
+
+.mybottom {
+    background-color: $theme-color;
+    color: $font-color;
+}
+
+.mybutton {
+    background-color: $button-color;
+    color: $button-text-color;
+}
+
+.mybackground {
+    background-color: $bacground-color;
+    // color: $font-color;
+}
