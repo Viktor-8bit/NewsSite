@@ -167,7 +167,7 @@ def post_by_category(request): # 127.0.0.1:8000/post/category/
     try:
         id = int(request.GET['cid']) # в базе есть 9 и 3
         posts = Posts.objects.filter(CategoryID=PostCategory.objects.get(id=id))
-        return render(request, 'get_post_by_category.html', {'posts' : posts})
+        return render(request, 'get_post_by_category.html', {'posts' : posts, 'post_category' : posts[0].CategoryID.category, 'categorys' : PostCategory.objects.all() })
 
     except Exception as ex:
         print(ex.args[0])
