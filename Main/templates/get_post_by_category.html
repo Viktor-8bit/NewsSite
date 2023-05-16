@@ -1,22 +1,43 @@
+{% load static %}
+
+{% load sass_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+
+    {% include 'header.html' %}
 </head>
 <body>
 
-    {% for p in posts %}
 
-    <p>________________________</p>
 
-    <a href="http://127.0.0.1:8000/post/?&postid={{p.id}}">
-        <p>{{p.Datee}}</p>
-        <p>{{p.Title}}</p>
-        <p>{{p.CategoryID.category}}</p>
-    </a>
+    <div class="container p-5">
 
-    {% endfor  %}
+            {% for p in posts %}
+                <div class="card p-3 gy-5">
+
+                    <!-- <div class="card-header">
+                        <p>{{p.Title}}</p>
+                    </div> -->
+                    <div class="card-body gy-3 p-3">
+                        <h5 class="card-title">{{p.Title}}</h5>
+                        <!-- <p class="card-text">Категория: {{p.CategoryID.category}}</p> -->
+                        <p class="card-text mb-2 text-muted">Дата: {{p.Datee}}</p>
+                        <a href="http://127.0.0.1:8000/post/?&postid={{p.id}}" class="btn btn-dark">Подробнее</a>
+                      </div>
+                    
+                    </a>
+                </div>
+            {% endfor  %}
+
+    </div>
+
+
+
+
+    {% include 'buttom.html' %}
 
 </body>
 </html>
