@@ -22,8 +22,7 @@
         }
 
         let post_id
-        Login = $.cookie('log')
-        Password = $.cookie('pass')
+
         async function _get_com_from_server(data){                                      /* функция которая будет выполнена после успешного запроса.  */
                     comments = document.getElementById('comments')
                     comments.innerHTML = ''
@@ -71,8 +70,22 @@
                 dataType: 'json',                                             /* Тип данных в ответе (xml, json, script, html). */
                 success: function(data) { _get_com_from_server(data) }
             })
+
             console.log(del)
-            del.then(function() { alert('комментарий удалён') });
+            del.then(
+                function() { 
+
+                    alert('комментарий удалён !');
+                    if ( $.cookie('comments_on_this_pc') === null || $.cookie('comments_on_this_pc') === undefined) {
+                        $.cookie('comments_on_this_pc', 0, { path: '/' });
+                    } 
+                    else {
+                        let count = parseInt($.cookie('comments_on_this_pc'))
+                        $.cookie('comments_on_this_pc', count - 1, { path: '/' });
+                    }
+                    alert('теперь комментариев '  + $.cookie('comments_on_this_pc'))
+
+                })
         }
 
         async function change_comment(id) {
@@ -122,3 +135,13 @@
             main_element.append(comment_clacel)
         }
 
+        async function addt_comment() {
+            alert('комментарий удалён');
+            if ( $.cookie('comments_on_this_pc') == NaN) {
+                $.cookie('comments_on_this_pc', 0, { path: '/' });
+            } 
+            else {
+                $.cookie('comments_on_this_pc', int($.cookie('comments_on_this_pc')) + 1, { path: '/' });
+            }        
+        }
+        

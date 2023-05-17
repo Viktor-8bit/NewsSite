@@ -11,6 +11,7 @@ class CustomUserManager(BaseUserManager):
           Создайте и сохраните пользователя с
           указанным адресом электронной почты и паролем.
         """
+        
         Login = Login
         role = 'пользователь'
         is_staff = False
