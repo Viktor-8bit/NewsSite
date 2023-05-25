@@ -76,9 +76,9 @@ def registration_page(request): # 127.0.0.1:8000/reg/
 
         return redirect('/')
 
-def index(request): # 127.0.0.1:8000/
+def index(request): # 127.0.0.1:8000/ главная страница
     posts = Posts.objects.order_by('-id')[0:12]  # posts = Posts.objects.filter(id__range =(0, 10))
-
+    # для форм или js
     if request.method == 'POST':
 
         loginform = LoginFrom(request.POST)
@@ -93,6 +93,7 @@ def index(request): # 127.0.0.1:8000/
         else:
             return HttpResponse('что-то пошло не так упс ╰(*°▽°*)╯')
     else:
+        # сработает если открыть в браузере
         return render(request, 'main_page.html', { 'posts' : posts } )
 
 def post_create_page(request): # 127.0.0.1:8000/create_post/
