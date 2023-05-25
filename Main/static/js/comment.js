@@ -42,7 +42,7 @@
                         // проверка на возможность удаления
                         if (name == username) {
                             comment += '<div class="btn-group" role="group" aria-label="Basic example">'
-                            comment += `<button onclick="delete_comment(${coment_id})" class="btn btn-dark">Удалить</button>`
+                            comment += `<button onclick="can_i_delete_comment(${coment_id})" class="btn btn-dark">Удалить</button>`
                             comment += `<button onclick="change_comment(${coment_id})" class="btn btn-dark">Изменить</button>`
                             comment += '</div>'
                         }
@@ -63,7 +63,32 @@
             });
         }
 
+
+        async function can_i_delete_comment(id) {
+        
+            main_element = $(`[class='com'][id='${id}']`)
+            stand_com = new Comment(main_element.children('.name').text(), main_element.children('.date').text(), main_element.children('.text').text())
+            main_element.children('p').remove()
+            main_element.children('div').remove()
+            comment_change = `
+                                    <p class = "name">${stand_com.name}</p>
+                                    <p class = "id = '${id}t'" style='color: red'>${stand_com.text}</p>
+                                    <p class = "date">${stand_com.date}</p>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button onclick="delete_comment(${id})" class="btn btn-dark">Подтвердить удаление</button>
+                                        <button onclick='Clancell(${id}, "${stand_com.name}",  "${stand_com.text}",  "${stand_com.date}" )' class="btn btn-dark">Отмена</button>
+                                    </div>
+                            `
+            main_element.append(comment_change)
+
+
+        }
+
+
+
+
         async function delete_comment(id) {
+
             const del = $.get({
                 url: 'http://127.0.0.1:8000/post/delete_comment?&id=' + id + '&pid=' + post_id,     /* Куда пойдет запрос */
                 method: 'get',                                                /* Метод передачи (post или get) */
@@ -128,7 +153,7 @@
                     <p class = "text">${text}</p>
                     <p class = "date">${date}</p>
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <button onclick="delete_comment(${id})" class="btn btn-dark">Удалить</button>
+                        <button onclick="can_i_delete_comment(${id})" class="btn btn-dark">Удалить</button>
                         <button onclick="change_comment(${id})" class="btn btn-dark">Изменить</button>
                     </div>
                     `
@@ -136,12 +161,6 @@
         }
 
         async function addt_comment() {
-            alert('комментарий удалён');
-            if ( $.cookie('comments_on_this_pc') == NaN) {
-                $.cookie('comments_on_this_pc', 0, { path: '/' });
-            } 
-            else {
-                $.cookie('comments_on_this_pc', int($.cookie('comments_on_this_pc')) + 1, { path: '/' });
-            }        
+            // *не забыть потом дописать функцию
         }
         
