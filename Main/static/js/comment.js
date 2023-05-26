@@ -42,7 +42,7 @@
                         // проверка на возможность удаления
                         if (name == username) {
                             comment += '<div class="btn-group" role="group" aria-label="Basic example">'
-                            comment += `<button onclick="can_i_delete_comment(${coment_id})" class="btn btn-dark">Удалить</button>`
+                            comment += `<button onclick="delete_comment(${coment_id})" class="btn btn-dark">Удалить</button>`
                             comment += `<button onclick="change_comment(${coment_id})" class="btn btn-dark">Изменить</button>`
                             comment += '</div>'
                         }
@@ -64,43 +64,43 @@
         }
 
 
-        async function can_i_delete_comment(id) {
-        
-            main_element = $(`[class='com'][id='${id}']`)
-            stand_com = new Comment(main_element.children('.name').text(), main_element.children('.date').text(), main_element.children('.text').text())
-            main_element.children('p').remove()
-            main_element.children('div').remove()
-            comment_change = `
-                                    <p class = "name">${stand_com.name}</p>
-                                    <p class = "id = '${id}t'" style='color: red'>${stand_com.text}</p>
-                                    <p class = "date">${stand_com.date}</p>
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button onclick="delete_comment(${id})" class="btn btn-dark">Подтвердить удаление</button>
-                                        <button onclick='Clancell(${id}, "${stand_com.name}",  "${stand_com.text}",  "${stand_com.date}" )' class="btn btn-dark">Отмена</button>
-                                    </div>
-                            `
-            main_element.append(comment_change)
-
-
-        }
-
-
-
-
+     
         async function delete_comment(id) {
 
+            let qwery_data;
             const del = $.get({
                 url: 'http://127.0.0.1:8000/post/delete_comment?&id=' + id + '&pid=' + post_id,     /* Куда пойдет запрос */
                 method: 'get',                                                /* Метод передачи (post или get) */
                 dataType: 'json',                                             /* Тип данных в ответе (xml, json, script, html). */
-                success: function(data) { _get_com_from_server(data) }
+                success: function(data) { qwery_data = data }
             })
 
             console.log(del)
-            del.then(
+            del.done(
                 function() { 
+                    
+                    main_element = document.getElementById(`${id}`)
+                    main_element.style.color = "red";
 
-                    alert('комментарий удалён !');
+                    console.log(qwery_data)
+
+                    var modal_canvas = document.getElementById('modal_canvas')
+
+                    modal_canvas.innerHTML = 
+                    `
+                    <div class="notification">
+                        <span class="close-button" id='update_comments'>&times;</span>
+                        <p>Ваш коментарий удалён. Закройте уведомление для обновления списка коментариев.</p>
+                    </div> 
+                    `
+                    
+                    document.getElementById("update_comments").addEventListener("click", function() {
+                        var modal_canvas = document.getElementById('modal_canvas')
+                        modal_canvas.innerHTML = ""
+                        _get_com_from_server(qwery_data)
+                    });
+                    
+                    //alert('комментарий удалён !');
                     if ( $.cookie('comments_on_this_pc') === null || $.cookie('comments_on_this_pc') === undefined) {
                         $.cookie('comments_on_this_pc', 0, { path: '/' });
                     } 
@@ -108,7 +108,7 @@
                         let count = parseInt($.cookie('comments_on_this_pc'))
                         $.cookie('comments_on_this_pc', count - 1, { path: '/' });
                     }
-                    alert('теперь комментариев '  + $.cookie('comments_on_this_pc'))
+                    //alert('теперь комментариев '  + $.cookie('comments_on_this_pc'))
 
                 })
         }
@@ -153,11 +153,12 @@
                     <p class = "text">${text}</p>
                     <p class = "date">${date}</p>
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <button onclick="can_i_delete_comment(${id})" class="btn btn-dark">Удалить</button>
+                        <button onclick="delete_comment(${id})" class="btn btn-dark">Удалить</button>
                         <button onclick="change_comment(${id})" class="btn btn-dark">Изменить</button>
                     </div>
                     `
             main_element.append(comment_clacel)
+
         }
 
         async function addt_comment() {

@@ -18,11 +18,9 @@
 <body> <!-- style="font-family: 'TTNormsProRegular';" -->
     
     <div class="container">
-        
-        <!-- <div class="card mb-3">
-            <img class="card-img-top" style="height: 30rem; object-fit: cover;" src="{% static 'img/news.jpg' %}" alt="Card image cap"> 
-        </div> -->
 
+
+        
 
         <div class="row justify-content-md-center p-5">
             <div class="card" style="width: 30rem;">
@@ -47,6 +45,16 @@
                     <button type="submit" class="btn btn-dark" >Отправить</button> <!-- onclick="addt_comment()" --> 
                 </div>
             </form>
+            
+            <div id="modal_canvas">
+                <!--
+                <div class="notification">
+                    <span class="close-button">&times;</span>
+                    <p>Это уведомление.</p>
+                </div> 
+                -->
+            </div>
+
         </div>  
 
         <div id="comments" class="comments"> </div>
@@ -56,14 +64,20 @@
     {% include 'buttom.html' %}
 </body>
 
+    <div class="container">
+         <!-- Модальные окна -->
+       
+        
 
-    <script type="text/javascript" src="{% static '/js/comment.js' %}"></script>
 
-    <script>
-        // const post_id = {{ post.id }}
-        set_const_name('{{user.Login }}')
-        get_comment( {{ post.id }} )
-    </script>
+        <script type="text/javascript" src="{% static '/js/comment.js' %}"></script>
+
+        <script>
+            // const post_id = {{ post.id }}
+            set_const_name('{{user.Login }}')
+            get_comment( {{ post.id }} )
+        </script>
+    </div>
 
 
 </html>
