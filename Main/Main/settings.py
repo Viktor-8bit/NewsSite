@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-+mypoj)c-)yca9r9)*&l3s37w9d@gogw)j0kd(q=kf_y3tu67i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.105', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.0.105', '172.30.80.1', '127.0.0.1', '85.209.9.13']
 
 
 # Application definition
@@ -160,3 +160,4 @@ SASS_PROCESSOR_ROOT = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None

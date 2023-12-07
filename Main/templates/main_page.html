@@ -29,7 +29,7 @@
                   <div class="card-body">
                     <h4 class="card-text"><p>{{p.Title}}</p></h4>
                     <h6 class="card-text mb-2 text-muted">{{p.Datee }}</h6> 
-                    <a href="http://127.0.0.1:8000/post/?&postid={{p.id}}" class="card-link">Подробнее</a>
+                    <a href="{% url 'post' %}?&postid={{p.id}}" class="card-link">Подробнее</a>
                   </div>
                 </div>
     

@@ -50,7 +50,7 @@ def my_logout(request):
         logout(request)
         return redirect(f'/{request.GET["redir"].replace("/", "") }')
     else:
-        return HttpResponse('(╯°□°）╯︵ ┻━┻ ЭТА ФУНКЦИЯ РАБОТАЕТ ТОЛЬКО С GET !!!')
+        pass # (╯°□°）╯︵ ┻━┻ ЭТА ФУНКЦИЯ РАБОТАЕТ ТОЛЬКО С GET !!!
 
 def registration_page(request): # 127.0.0.1:8000/reg/
     if request.method == 'GET':
@@ -63,17 +63,16 @@ def registration_page(request): # 127.0.0.1:8000/reg/
                 if User_count > 0:
                     return render(request, 'reg.html', {'reg': RegForm(), 'error': 'пользователь с таким Login существует в базе !'})
                 else:
-                    user = regform.save(commit=False) # user.password = hashlib.sha256(bytes(regform.cleaned_data['password'], 'utf-8')).hexdigest()
+                    user = regform.save(commit=False)
                     user.set_password(regform.cleaned_data['password'])
-                    user.save()
+                    # user.save()
             except:
-                return render(request, 'reg.html', { 'reg': RegForm(), 'error': 'упс, где-то произошла ошибочка 😨'} )
+                pass
         else:
             try:
                 regform.clean()
             except Exception as ex:
                 return render(request, 'reg.html', {'reg': RegForm(), 'error': ex.args[0]})
-
         return redirect('/')
 
 def index(request): # 127.0.0.1:8000/ главная страница
@@ -91,9 +90,8 @@ def index(request): # 127.0.0.1:8000/ главная страница
             else:
                 return redirect('login/?&error=пользователь не найден или неверный пароль')
         else:
-            return HttpResponse('что-то пошло не так упс ╰(*°▽°*)╯')
+            pass  # что-то пошло не так упс ╰(*°▽°*)╯
     else:
-        # сработает если открыть в браузере
         return render(request, 'main_page.html', { 'posts' : posts } )
 
 def post_create_page(request): # 127.0.0.1:8000/create_post/
@@ -175,14 +173,14 @@ def post_by_category(request): # 127.0.0.1:8000/post/category/
         return HttpResponse(ex.args[0])
 
 def debug(request):
-    return render(request, 'logout.html')
+    return render(request, 'amogus.html')
 
 def delete_comment(request):
 
     if request.method == 'GET':
         print(request.user)
         if not request.user.is_authenticated:
-            return HttpResponse('ВОЙДИТЕ СНАЧАЛА В АККАУНТ (╯°□°）╯︵ ┻━┻')
+            pass # ВОЙДИТЕ СНАЧАЛА В АККАУНТ (╯°□°）╯︵ ┻━┻
         else:
             try:
                 Login = request.user.Login
@@ -204,10 +202,9 @@ def delete_comment(request):
                             else:
                                 pass
 
-                        return HttpResponse(json.dumps(to_return, ensure_ascii=False));  # json.dumps( {'sus' : ['dfdf', 'fdfdf', 'dfdds'] } | json.dumps(coments.__dict__)
-                        #return HttpResponse('успех (¬‿¬)')
+                        return HttpResponse(json.dumps(to_return, ensure_ascii=False));  # json.dumps( {'sus' : ['dfdf', 'fdfdf', 'dfdds'] } | json.dumps(coments.__dict__) успех (¬‿¬)
                     else:
-                        return HttpResponse('НЕЛЬЗЯ УДАЛЯТЬ ЧУЖИЕ КОММЕНТАРИИ БЕЗ ПРАВ АДМИНИСТРАТОРА (╯°□°）╯︵ ┻━┻')
+                        pass # НЕЛЬЗЯ УДАЛЯТЬ ЧУЖИЕ КОММЕНТАРИИ БЕЗ ПРАВ АДМИНИСТРАТОРА (╯°□°）╯︵ ┻━┻
 
             except Exception as ex:
                 return HttpResponse(f'опять ошибка: {ex.args[0]} (╯°□°）╯︵ ┻━┻')
@@ -264,10 +261,9 @@ def get_comments(request): # 127.0.0.1:8000/post/get_comments
                     to_return['comments'].append( { 'id': str(com.id) ,'text' : str(com.CommentText), 'dat' : str(com.Datee)[0:19], 'name' : com.UserID.Login, 'parent' : com.ParentCommentID } )
                 else:
                     pass
-
             return HttpResponse( json.dumps(to_return, ensure_ascii=False)); # json.dumps( {'sus' : ['dfdf', 'fdfdf', 'dfdds'] } | json.dumps(coments.__dict__)
         except Exception as ex:
-            return HttpResponse(f"ошибка получения комментариев {ex.args[0]}")
+            pass # ошибка получения комментариев
 
 def about_us(request):
     return render(request, 'about.html')
