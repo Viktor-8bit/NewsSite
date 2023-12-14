@@ -19,6 +19,11 @@
           <figure class="figure">
             <img src="https://abc-paper.ru/wp-content/uploads/2022/04/reshitelsost-v-biznese.jpg" class="figure-img img-fluid rounded" alt="два человека в костюмах">
             <figcaption class="figure-caption">Анализируем риски находим, находим возможности, принимаем решения.</figcaption>
+            
+            {% if user.is_authenticated %}
+            <p name="hello">Добро пожаловать {{user.Login}} </p>
+            {% endif %}
+
           </figure>
         </div>
         
