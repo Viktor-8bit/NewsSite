@@ -65,7 +65,7 @@ def registration_page(request): # 127.0.0.1:8000/reg/
                 else:
                     user = regform.save(commit=False)
                     user.set_password(regform.cleaned_data['password'])
-                    # user.save()
+                    user.save()
             except:
                 pass
         else:

@@ -54,10 +54,9 @@
         async function get_comment(id) {
             post_id = id
             comments = document.getElementById('comments')
-            console.log('{% url "get_comments" %}')
             // $.ajax({
             $.get({
-                url: 'get_comments?cid=' + id,     /* Куда пойдет запрос  {% url 'post' %}?&postid={{p.id}} */
+                url: 'http://85.209.9.13:8000/post/get_comments?cid=' + id,     /* Куда пойдет запрос */
                 method: 'get',                                                /* Метод передачи (post или get) */
                 dataType: 'json',                                             /* Тип данных в ответе (xml, json, script, html). */
                 success: function(data) { _get_com_from_server(data) }
@@ -69,9 +68,8 @@
         async function delete_comment(id) {
 
             let qwery_data;
-
             const del = $.get({
-                url: 'delete_comment?&id=' + id + '&pid=' + post_id,     /* Куда пойдет запрос */
+                url: 'http://85.209.9.13:8000/post/delete_comment?&id=' + id + '&pid=' + post_id,     /* Куда пойдет запрос */
                 method: 'get',                                                /* Метод передачи (post или get) */
                 dataType: 'json',                                             /* Тип данных в ответе (xml, json, script, html). */
                 success: function(data) { qwery_data = data }
@@ -101,7 +99,8 @@
                         modal_canvas.innerHTML = ""
                         _get_com_from_server(qwery_data)
                     });
-                
+                    
+                    //alert('комментарий удалён !');
                     if ( $.cookie('comments_on_this_pc') === null || $.cookie('comments_on_this_pc') === undefined) {
                         $.cookie('comments_on_this_pc', 0, { path: '/' });
                     } 
@@ -109,6 +108,7 @@
                         let count = parseInt($.cookie('comments_on_this_pc'))
                         $.cookie('comments_on_this_pc', count - 1, { path: '/' });
                     }
+                    //alert('теперь комментариев '  + $.cookie('comments_on_this_pc'))
 
                 })
         }
@@ -134,7 +134,7 @@
         async function Ok(id) {
             text = document.getElementById(`${id}t`).value
             $.get({
-                url: 'delete_comment?&id=' + id + '&pid=' + post_id + '&text=' + text,     /* Куда пойдет запрос */
+                url: 'http://85.209.9.13:8000/post/change_comment?&id=' + id + '&pid=' + post_id + '&text=' + text,     /* Куда пойдет запрос */
                 method: 'get',                                                /* Метод передачи (post или get) */
                 dataType: 'json',                                             /* Тип данных в ответе (xml, json, script, html). */
                 success: function(data) { _get_com_from_server(data) }

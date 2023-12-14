@@ -8,16 +8,9 @@
 <head>
     <meta charset="UTF-8">
     <!-- <meta name="csrf-token" content="{% csrf_token %}"> -->
-
     <link rel="stylesheet" href="{% static '/css/comments.css' %}">
-
     <script src="{% static '/js/jquery-3.6.3.js' %}" ></script>
-
     <script type="text/javascript" src="{% static '/js/cookie/jquery.cookie.js' %}"></script>
-
-    <script type="text/javascript" src="{% static '/js/vue.js' %}"></script>
-
-
 
     {% include 'header.html' %}
 
@@ -64,32 +57,26 @@
 
         </div>  
 
-        <div id="comments">
-            
-            <my-coment-div 
-                v-for="coment in comentList" 
-                v-bind:coment="coment"
-                v-bind:key="coment.coment_id">
-            </my-coment-div >
+        <div id="comments" class="comments"> </div>
 
 
-        </div>
-        
-        <script> 
-            let id = '{{post.id}}'; 
-            // let my_name = '{{ user.Login }}';
-        </script>
-        
-        <script type="text/javascript" src="{% static '/js/las_comment.js' %}"></script>
     </div>
-
     {% include 'buttom.html' %}
-
 </body>
 
     <div class="container">
          <!-- Модальные окна -->
+       
+        
 
+
+        <script type="text/javascript" src="{% static '/js/comment.js' %}"></script>
+
+        <script>
+            // const post_id = {{ post.id }}
+            set_const_name('{{user.Login}}')
+            get_comment( {{ post.id }} )
+        </script>
     </div>
 
 

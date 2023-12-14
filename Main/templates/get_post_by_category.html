@@ -16,7 +16,7 @@
         function category() {
             id = document.getElementById("inlineFormCustomSelect").value; 
             //alert(id)
-            location.assign("http://127.0.0.1:8000/post/category/?&cid=" + id);
+            location.assign("/post/category/?&cid=" + id);
         }
     </script>
 
@@ -69,7 +69,7 @@
                         <h5 class="card-title">{{p.Title}}</h5>
                         <!-- <p class="card-text">Категория: {{p.CategoryID.category}}</p> -->
                         <p class="card-text mb-2 text-muted">Дата: {{p.Datee}}</p>
-                        <a href="http://127.0.0.1:8000/post/?&postid={{p.id}}" class="btn btn-dark">Подробнее</a>
+                        <a href="/post/?&postid={{p.id}}" class="btn btn-dark">Подробнее</a>
                       </div>
                     
                     </a>

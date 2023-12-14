@@ -23,25 +23,25 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active mytext" aria-current="page" href="{% url 'index' %}"><h5 class="mytext">Главная</h5></a>
+          <a class="nav-link active mytext" aria-current="page" href="/"><h5 class="mytext">Главная</h5></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active mytext" href="{% url 'about' %}"><h5 class="mytext">О нас</h5></a>
+          <a class="nav-link active mytext" href="/about_us/"><h5 class="mytext">О нас</h5></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active mytext" href="{% url 'post_by_category' %}?&cid=1"><h5 class="mytext">Категории</h5></a>
+          <a class="nav-link active mytext" href="/post/category/?&cid=1"><h5 class="mytext">Категории</h5></a>
         </li>
 
         <li class="nav-item">
           {% if not user.is_authenticated %}
 
-            <li><a class="nav-link active" href="{% url 'reg' %}"><h5 class="mytext">Регистрация</h5></a></li>
-            <li><a class="nav-link active" href="{% url 'login' %}"><h5 class="mytext">Вход</h5></a></li>
+            <li><a class="nav-link active" href="/reg/"><h5 class="mytext">Регистрация</h5></a></li>
+            <li><a class="nav-link active" href="/login/"><h5 class="mytext">Вход</h5></a></li>
 
           {% else %}
 
-            <li><a href="{% url 'logout' %}?&redir=//" class="nav-link active"><h5 class="mytext">Выход</h5></a></li>
-            <li><a class="nav-link active"><h5 class="mytext">{{ user.Login }}</h5></a></li>
+            <li><a href="/logout/?&redir=//" class="nav-link active"><h5 class="mytext">Выход</h5></a></li>
+            <li><a class="nav-link active"><h5 class="mytext" name="">{{ user.Login }}</h5></a></li>
 
           {% endif %}
         </li>
